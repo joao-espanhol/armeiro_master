@@ -1,0 +1,146 @@
+*{margin: 0; padding: 0;}
+
+body{
+font-family: arial, helvetica, sans-serif;
+font-size: 12px;
+}
+
+.menu{
+list-style:none;
+float:left;
+}
+
+.menu li{
+    position:relative;
+    float:left;
+    
+}
+
+.menu li a{color:#333; text-decoration:none; padding:5px 10px; display:block;}
+
+.menu li a:hover{
+background:#333;
+color:#fff;
+text-shadow:0px 0px 5px #fff;
+}
+
+.menu li:hover ul, .menu li.over ul{display:block;}
+
+.menu li  ul{
+    position:absolute;
+    top:25px;
+    left:0;
+    background-color:#fff;
+    display:none;
+}
+
+.menu li ul li{
+    display:block;
+    width:150px;
+}
+
+#MenuLateral {
+	/*layout*/
+	position: absolute;
+	margin: 10px;
+	width: 15%;
+	height: 500px;
+
+	/*cores*/
+	background-color: rgb(65, 82, 67);
+	/*fontes*/
+	line-height: 2;
+	font-family: arial, helvetica, sans-serif;
+	font-size: 0.9em;
+    
+}
+
+#Pesquisa {
+	/*layout*/
+    position: absolute;
+	right: 20px;
+	margin: 10px;
+	width: 80%;
+	height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+	/*cores e fontes*/
+	color: rgb(66, 91, 70);
+	background-color: #F0F0F0 ;
+	font-family: arial, helvetica, sans-serif;
+}
+
+#Cadastro {
+	/*layout*/
+    position: absolute;
+	right: 20px;
+	margin: 10px;
+	width: 80%;
+	height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+	/*cores e fontes*/
+	color: rgb(66, 91, 70);
+	background-color: #F0F0F0 ;
+	font-family: arial, helvetica, sans-serif;
+}
+
+.campos {
+    width: 100%; 
+    height: 100%; 
+    margin: 0 auto; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+}
+
+p {
+    margin: 10px;
+    padding: 5px;
+    line-height: 2;
+}
+
+/* Estilos para a tabela */
+#tabela {
+    border-collapse: collapse;
+    width: 100%;
+    border: 2px solid #4CAF50; 
+    max-height: 15em; 
+    overflow-y: auto; 
+}
+
+/* Estilos para as células do cabeçalho */
+#tabela th {
+    background-color: #4CAF50; 
+    color: white;
+    padding: 8px;
+    text-align: left;
+    border-bottom: 2px solid #ddd; 
+}
+
+/* Estilos para as células do corpo da tabela */
+#tabela td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd; 
+}
+
+/* Estilos para as linhas alternadas da tabela */
+#tabela tbody tr:nth-child(even) {
+    background-color: #f2f2f2; 
+}
+
+/* Estilos para as células da primeira coluna */
+#tabela tbody tr td:first-child {
+    background-color: #3d8e7d; 
+    color: white;
+}
