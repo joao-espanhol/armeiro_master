@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="styles/style.css" rel="stylesheet" type="text/css">
+    <script src="scripts/scripts.js"></script>
+
+    <title>Cadastro de Rádios</title>
+</head>
+<body>
+    <h1> Armeiro Master</h1>
+    <div id="MenuLateral">
+        <h1> Menu </h1>
+        <nav>
+            <ul class="menu">
+                <li><a href="index.html">Rádios Cadastrados</a></li>
+                <br>
+                <li><a href="pesquisa.html">Pesquisa</a></li>
+                <br>
+                <li><a href="cadastro.html">Cadastro de Rádios</a></li>
+                <br>
+                        <li><a href="#">Atualização de Bases:</a>
+                        <ul>
+                                <li><a href="grupo.html">Grupo</a></li>
+                                <br>
+                                <li><a href="modelo.html">Modelo</a></li>
+                                <br>
+                                <li><a href="situacao.html">Situação</a></li>
+                            </ul>
+                    </li>
+            </ul>
+        </nav>
+    </div>
+    <div id="Cadastro">
+        <form>
+            <fieldset class="campos">
+                <div>
+                    <br>
+                    <label for="REF">REF</label>
+                    <input type="text" id="REF" name="REF" style="width: 5em" value="">
+                    <label for="Grupo">Grupo</label>
+                    <select id="Grupo" name="Grupo" style="width: 10em" value=""> </select>
+                    <label for="Modelo">Modelo</label>
+                    <select id="Modelo" name="Modelo" style="width: 15em" value=""></select>
+                    <br>
+                    <label for="Bateria">Bateria</label>
+                    <select type="combobox" id="Bateria" name="Bateria" style="width: 10em" value="">
+                        <option value="OK">OK</option>
+                        <option value="Não há">Não há</option>
+                        <option value="Baixada">Baixada</option>
+                        <option value="-">-</option>
+                    <label for="Antena">Antena</label>
+                    <input type="text" id="Antena" name="Antena" style="width: 10em" value="">
+                    <label for="Situação">Situação</label>
+                    <select id="Situação" name="Situação" style="width: 10em" value=""></select>
+                    <br>
+                    <label for="Alteração">Alteração</label>
+                    <input type="text" id="Alteração" name="Alteração" style="width: 35em" value="">
+                    <br>
+                </div>
+            </fieldset>
+            <button class="bt_cadastrar" type="button" name="cadastrar">Cadastrar</button>
+        </form>
+    </div>
+</body>
+</html>
