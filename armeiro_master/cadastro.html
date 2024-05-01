@@ -29,20 +29,36 @@
                     <label for="REF">REF</label>
                     <input type="text" id="REF" name="REF" style="width: 5em" value="">
                     <label for="Grupo">Grupo</label>
-                    <select id="Grupo" name="Grupo" style="width: 10em" value=""> </select>
+                    <select id="Grupo" name="Grupo" style="width: 10em" value="">
+                    </select>
                     <label for="Modelo">Modelo</label>
-                    <select id="Modelo" name="Modelo" style="width: 15em" value=""></select>
+                    <select id="Modelo" name="Modelo" style="width: 15em" onchange="atualizarREFeGrupo(this.value)">
+                    </select>
                     <br>
                     <label for="Bateria">Bateria</label>
-                    <select type="combobox" id="Bateria" name="Bateria" style="width: 10em" value="">
-                        <option value="OK">OK</option>
-                        <option value="Não há">Não há</option>
-                        <option value="Baixada">Baixada</option>
-                        <option value="-">-</option>
+                    <select id="Bateria" name="Bateria" style="width: 10em" value="">
+                        <option value="Ok">OK</option>
+                        <option value="Baixada">BAIXADA</option>
+                        <option value="naoHa">NÃO HÁ</option>
+                        <option value="semValor">-</option>
+                    </select>
                     <label for="Antena">Antena</label>
-                    <input type="text" id="Antena" name="Antena" style="width: 10em" value="">
+                    <select id="Antena" name="Antena" style="width: 10em" value="">
+                        <option value="Ok">OK</option>
+                        <option value="Baixada">BAIXADA</option>
+                        <option value="Danificada">DANIFICADA</option>
+                        <option value="semAntena">SEM ANTENA</option>
+                        <option value="semValor">-</option>
+                    </select>
                     <label for="Situação">Situação</label>
-                    <select id="Situação" name="Situação" style="width: 10em" value=""></select>
+                    <select id="Situação" name="Situação" style="width: 10em" value="">
+                        <option value="semAlteracao">SEM ALTERAÇÃO</option>
+                        <option value="Baixado">BAIXADO</option>
+                        <option value="Desatualizado">DESATUALIZADO</option>
+                        <option value="funciona">FUNCIONA</option>
+                        <option value="naoConfiguravel">NÃO CONFIGURÁVEL</option>
+                        <option value="semValor">-</option>
+                    </select>
                     <br>
                     <label for="Alteração">Alteração</label>
                     <input type="text" id="Alteração" name="Alteração" style="width: 35em" value="">
@@ -52,5 +68,11 @@
             <button class="bt_cadastrar" type="button" name="cadastrar">Cadastrar</button>
         </form>
     </div>
+    <script>
+        // Adicionar evento de mudança ao select de modelos
+        document.getElementById("Modelo").addEventListener('change', function() {
+            atualizarREFeGrupo(this.value);
+        });
+    </script>
 </body>
 </html>

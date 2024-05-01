@@ -1,80 +1,166 @@
 console.log("1");
 
-function loadDoc() {
-  const xhttp = new XMLHttpRequest();
-  xhttp.onload = function() {
+function loadMateriais() {
+    const xhttp = new XMLHttpRequest();
+    xhttp.onload = function() {
+      processarMateriais(this);
       myFunction(this);
-  }
-  xhttp.open("GET", "data/materiais.xml");
-  xhttp.send();
-}
-
-console.log("3");
-
-function myFunction(xml) {
-    const xmlDoc = xml.responseXML;
-    const x = xmlDoc.getElementsByTagName("radio");
-    let table = "";
-    for (let i = 0; i < x.length; i++) {
-        table += "<tr><td>" +
-            x[i].getElementsByTagName("ref")[0].childNodes[0].nodeValue +
-            "</td><td>" +
-            x[i].getElementsByTagName("grupo")[0].childNodes[0].nodeValue +
-            "</td><td>" +
-            x[i].getElementsByTagName("modelo")[0].childNodes[0].nodeValue +
-            "</td><td>" +
-            x[i].getElementsByTagName("ns")[0].childNodes[0].nodeValue +
-            "</td><td>" +
-            x[i].getElementsByTagName("bateria")[0].childNodes[0].nodeValue +
-            "</td><td>" +
-            x[i].getElementsByTagName("antena")[0].childNodes[0].nodeValue +
-            "</td><td>" +
-            x[i].getElementsByTagName("situacao")[0].childNodes[0].nodeValue +
-            "</td><td>" +
-            x[i].getElementsByTagName("alteracao")[0].childNodes[0].nodeValue +
-            "</td><td><button class='delete-icon' onclick='excluirRadio(" + i + ", xmlDoc)'><img src='lixeira.png'></button></td></tr>";
     }
-    document.getElementById("corpo-tabela").innerHTML = table;
+    xhttp.open("GET", "data/materiais.xml");
+    xhttp.send();
+  }
+  
+  function loadModelos() {
+      const xhttp = new XMLHttpRequest();
+      xhttp.onload = function() {
+          processarModelos(this);
+      }
+      xhttp.open("GET", "data/modelos.xml");
+      xhttp.send();
+  }
+  
+  // Processar XML de materiais
+  function processarMateriais(xml) {
+      // Armazenar o XML em uma variável global para acessá-lo posteriormente
+      window.materiaisXML = xml.responseXML;
+  }
+  
+  // Processar XML de modelos
+  function processarModelos(xml) {
+      const xmlDoc = xml.responseXML;
+      const modelos = xmlDoc.getElementsByTagName("modelo");
+      const selectModelo = document.getElementById("Modelo");
+      
+      // Preencher o select de modelos com os dados do XML
+      for (let i = 0; i < modelos.length; i++) {
+          const nomeModelo = modelos[i].getElementsByTagName("nome")[0].textContent;
+          const option = document.createElement("option");
+          option.text = nomeModelo;
+          option.value = nomeModelo;
+          selectModelo.add(option);
+      }
+      
+      // Adicionar evento de mudança ao select de modelos
+      selectModelo.addEventListener('change', function() {
+        console.log("Modelo selecionado:", this.value);
+        atualizarREFeGrupo(this.value);
+      });
+  }
+  
+  function atualizarREFeGrupo(modeloSelecionado) {
+    // Esperar até que o DOM esteja completamente carregado
+    document.addEventListener("DOMContentLoaded", function() {
+        const xmlDoc = window.materiaisXML;
+        const radios = xmlDoc.getElementsByTagName("radio");
+        let maiorRef = 0;
+        let grupoModelo = '';
 
-    preencherFiltros(); // Preencher os filtros após carregar os dados
-
-    exibirPagina(paginaAtual);
-
-    document.getElementById('botaoFiltrar').addEventListener('click', function() {
-        console.log("Botão de filtrar clicado!");
-    
-        const filtros = {
-            'filtroRef': document.getElementById('filtroRef').value.toUpperCase(),
-            'filtroGrupo': document.getElementById('filtroGrupo').value.toUpperCase(),
-            'filtroModelo': document.getElementById('filtroModelo').value.toUpperCase(),
-            'filtroNS': document.getElementById('filtroNS').value.toUpperCase(),
-            'filtroBateria': document.getElementById('filtroBateria').value.toUpperCase(),
-            'filtroAntena': document.getElementById('filtroAntena').value.toUpperCase(),
-            'filtroSituacao': document.getElementById('filtroSituacao').value.toUpperCase(),
-            'filtroAlteracao': document.getElementById('filtroAlteracao').value.toUpperCase(),
-        };
-
-        console.log(filtros);
-    
-        const todasLinhas = document.querySelectorAll("#corpo-tabela tr");
-    
-        todasLinhas.forEach(function(linha) {
-            let mostrar = false;
-            for (let key in filtros) {
-                const indiceColuna = Array.from(linha.cells).findIndex(cell => cell.id === key);
-                const textoCelula = linha.cells[indiceColuna].textContent.toUpperCase();
-                if (textoCelula.includes(filtros[key]) && filtros[key] !== '') {
-                    mostrar = true;
-                    break;
-                }
+        // Encontrar o maior REF para o modelo selecionado
+        for (let i = 0; i < radios.length; i++) {
+            const modeloRadio = radios[i].getElementsByTagName("modelo")[0].textContent;
+            const ref = parseInt(radios[i].getElementsByTagName("ref")[0].textContent);
+            if (modeloRadio === modeloSelecionado && ref > maiorRef) {
+                maiorRef = ref;
             }
-            linha.style.display = mostrar ? "" : "none";
-        });
-    });   
+        }
+
+        // Encontrar o grupo do modelo selecionado
+        const modelosXML = xmlDoc.getElementsByTagName("modelo");
+        for (let i = 0; i < modelosXML.length; i++) {
+            const nomeModelo = modelosXML[i].getElementsByTagName("nome")[0].textContent;
+            if (nomeModelo === modeloSelecionado) {
+                grupoModelo = modelosXML[i].getElementsByTagName("grupo")[0].textContent;
+                break;
+            }
+        }
+
+        // Verificar se os elementos com os IDs "REF" e "Grupo" existem antes de acessá-los
+        const elementoREF = document.getElementById("REF");
+        const elementoGrupo = document.getElementById("Grupo");
+        if (elementoREF && elementoGrupo) {
+            // Preencher os campos REF e Grupo com os valores encontrados
+            elementoREF.value = maiorRef + 1;
+            elementoGrupo.value = grupoModelo;
+        } else {
+            console.error("Elementos 'REF' e/ou 'Grupo' não encontrados no DOM.");
+        }
+    });
 }
+
+  
+  // Carregar os XMLs ao carregar a página
+  window.onload = function() {
+        console.log("Pagina carregada... carregando xml");
+      loadMateriais();
+      loadModelos();
+  };
+  
+  console.log("3");
+  
+  function myFunction(xml) {
+      const xmlDoc = xml.responseXML;
+      const x = xmlDoc.getElementsByTagName("radio");
+      let table = "";
+      for (let i = 0; i < x.length; i++) {
+          table += "<tr><td>" +
+              x[i].getElementsByTagName("ref")[0].childNodes[0].nodeValue +
+              "</td><td>" +
+              x[i].getElementsByTagName("grupo")[0].childNodes[0].nodeValue +
+              "</td><td>" +
+              x[i].getElementsByTagName("modelo")[0].childNodes[0].nodeValue +
+              "</td><td>" +
+              x[i].getElementsByTagName("ns")[0].childNodes[0].nodeValue +
+              "</td><td>" +
+              x[i].getElementsByTagName("bateria")[0].childNodes[0].nodeValue +
+              "</td><td>" +
+              x[i].getElementsByTagName("antena")[0].childNodes[0].nodeValue +
+              "</td><td>" +
+              x[i].getElementsByTagName("situacao")[0].childNodes[0].nodeValue +
+              "</td><td>" +
+              x[i].getElementsByTagName("alteracao")[0].childNodes[0].nodeValue +
+              "</td><td><button class='delete-icon' onclick='excluirRadio(" + i + ", xmlDoc)'><img src='lixeira.png'></button></td></tr>";
+      }
+      document.getElementById("corpo-tabela").innerHTML = table;
+  
+      preencherFiltros(); // Preencher os filtros após carregar os dados
+  
+      exibirPagina(paginaAtual);
+  
+      document.getElementById('botaoFiltrar').addEventListener('click', function() {
+          console.log("Botão de filtrar clicado!");
+      
+          const filtros = {
+              'filtroRef': document.getElementById('filtroRef').value.toUpperCase(),
+              'filtroGrupo': document.getElementById('filtroGrupo').value.toUpperCase(),
+              'filtroModelo': document.getElementById('filtroModelo').value.toUpperCase(),
+              'filtroNS': document.getElementById('filtroNS').value.toUpperCase(),
+              'filtroBateria': document.getElementById('filtroBateria').value.toUpperCase(),
+              'filtroAntena': document.getElementById('filtroAntena').value.toUpperCase(),
+              'filtroSituacao': document.getElementById('filtroSituacao').value.toUpperCase(),
+              'filtroAlteracao': document.getElementById('filtroAlteracao').value.toUpperCase(),
+          };
+  
+          console.log(filtros);
+      
+          const todasLinhas = document.querySelectorAll("#corpo-tabela tr");
+      
+          todasLinhas.forEach(function(linha) {
+              let mostrar = false;
+              for (let key in filtros) {
+                  const indiceColuna = Array.from(linha.cells).findIndex(cell => cell.id === key);
+                  const textoCelula = linha.cells[indiceColuna].textContent.toUpperCase();
+                  if (textoCelula.includes(filtros[key]) && filtros[key] !== '') {
+                      mostrar = true;
+                      break;
+                  }
+              }
+              linha.style.display = mostrar ? "" : "none";
+          });
+      });   
+  }
 
 function excluirRadio(index, xmlDoc){
-    console.log("Exlcuindo rádio" + index);
+    console.log("Excluindo rádio" + index);
     x = xmlDoc.getElementsByTagName("radio")[index];
 
     x.parentNode.removeChild(x);
@@ -125,7 +211,6 @@ function preencherFiltros() {
         });
     });
 }
-
 
 // Função para filtrar a tabela com base nas opções selecionadas nos dropdowns
 function filtrarTabela() {
@@ -205,14 +290,7 @@ document.getElementById('botaoFiltrar').addEventListener('click', function() {
     filtrarTabela();
 });
 
-
-window.onload = function() {
-    loadDoc();
-};
-
-
-//Cadastro dos rádios
-
+// Adicionar o evento de clique ao botão de cadastrar rádio
 document.querySelector('.bt_cadastrar').addEventListener('click', function() {
     cadastrarRadio();
 });
