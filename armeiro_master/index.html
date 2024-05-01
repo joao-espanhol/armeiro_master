@@ -23,27 +23,41 @@
         </nav>
     </div>
    <div class="campos">
-    <section>
-        <h2>Radios Cadastrados</h2>
-        <table id="tabela">
-            <thead>
-                <tr>
-                    <th>REF</th>
-                    <th>Grupo</th>
-                    <th>Modelo</th>
-                    <th>Número de Série</th>
-                    <th>Bateria</th>
-                    <th>Antena</th>
-                    <th>Situação</th>
-                    <th>Alteração</th>
-                </tr>
-            </thead>
-            <tbody id="corpo-tabela">
+        <section>
+            <h2>Radios Cadastrados</h2>
+            <div class="filtros">
+                <input type="text" id="filtroRef" placeholder="Filtrar REF">
+                <input type="text" id="filtroGrupo" placeholder="Filtrar Grupo">
+                <input type="text" id="filtroModelo" placeholder="Filtrar Modelo">
+                <input type="text" id="filtroNS" placeholder="Filtrar Número de Série">
+                <input type="text" id="filtroBateria" placeholder="Filtrar Bateria">
+                <input type="text" id="filtroAntena" placeholder="Filtrar Antena">
+                <input type="text" id="filtroSituacao" placeholder="Filtrar Situação">
+                <input type="text" id="filtroAlteracao" placeholder="Filtrar Alteração">
+                <button id="botaoFiltrar">Filtrar</button>
+            </div>
+            <table id="tabela">
+                <thead>
+                    <tr>
+                        <th>REF</th>
+                        <th>Grupo</th>
+                        <th>Modelo</th>
+                        <th>Número de Série</th>
+                        <th>Bateria</th>
+                        <th>Antena</th>
+                        <th>Situação</th>
+                        <th>Alteração</th>
+                    </tr>
+                </thead>
+                <tbody id="corpo-tabela">
 
-            </tbody>
-          </table>
-    </section>
-
+                </tbody>
+            </table>
+            <div class="paginacao">
+                <button id="paginaAnterior">Página Anterior</button>
+                <button id="paginaSeguinte">Próxima Página</button>
+            </div>
+        </section>
    </div>
     
     
