@@ -1,4 +1,3 @@
-console.log("1");
 
 function loadMateriais() {
     const xhttp = new XMLHttpRequest();
@@ -329,3 +328,13 @@ function cadastrarRadio() {
     xhttp.open("GET", "data/materiais.xml"); // Substitua pelo caminho do seu arquivo XML
     xhttp.send();
 }
+
+// Botoes menu incial
+
+document.getElementById("consultarRadios").addEventListener("click", function() {
+    window.location.href = "radios.html";
+});
+
+document.getElementById("cadastrarRadios").addEventListener("click", function() {
+    window.location.href = "cadastro.html";
+});

@@ -8,20 +8,22 @@
 
     <title>Cadastro de Rádios</title>
 </head>
-<body>
+<body onload="loadDoc()">
     <div class="container">
         <h1>Armeiro Master</h1>
     </div>
     <div id="MenuLateral">
         <nav>
             <ul class="topnav">
-                <li><a href="index.html">Rádios Cadastrados</a></li>
+                <li><a href="inicio.html">Inicio</a></li>
+                <li><a href="radios.html">Rádios Cadastrados</a></li>
                 <li><a href="cadastro.html">Cadastro de Rádios</a></li>
                 <li style="float:right"><a class="ajuda" href="#ajuda">Ajuda</a></li>
             </ul>
         </nav>
     </div>
-    <div id="Cadastro">
+    <h3> Cadastrar Rádio</h3>
+    <div class="Cadastro">
         <form>
             <fieldset class="campos">
                 <div>
@@ -32,47 +34,25 @@
                     <select id="Grupo" name="Grupo" style="width: 10em" value="">
                     </select>
                     <label for="Modelo">Modelo</label>
-                    <select id="Modelo" name="Modelo" style="width: 15em" onchange="atualizarREFeGrupo(this.value)">
-                    </select>
+                    <select id="Modelo" name="Modelo" style="width: 15em" value=""></select>
                     <br>
                     <label for="Bateria">Bateria</label>
-                    <select id="Bateria" name="Bateria" style="width: 10em" value="">
-                        <option value="Ok">OK</option>
-                        <option value="Baixada">BAIXADA</option>
-                        <option value="naoHa">NÃO HÁ</option>
-                        <option value="semValor">-</option>
-                    </select>
+                    <select type="combobox" id="Bateria" name="Bateria" style="width: 10em" value="">
+                        <option value="OK">OK</option>
+                        <option value="Não há">Não há</option>
+                        <option value="Baixada">Baixada</option>
+                        <option value="-">-</option>
                     <label for="Antena">Antena</label>
-                    <select id="Antena" name="Antena" style="width: 10em" value="">
-                        <option value="Ok">OK</option>
-                        <option value="Baixada">BAIXADA</option>
-                        <option value="Danificada">DANIFICADA</option>
-                        <option value="semAntena">SEM ANTENA</option>
-                        <option value="semValor">-</option>
-                    </select>
+                    <input type="text" id="Antena" name="Antena" style="width: 10em" value="">
                     <label for="Situação">Situação</label>
-                    <select id="Situação" name="Situação" style="width: 10em" value="">
-                        <option value="semAlteracao">SEM ALTERAÇÃO</option>
-                        <option value="Baixado">BAIXADO</option>
-                        <option value="Desatualizado">DESATUALIZADO</option>
-                        <option value="funciona">FUNCIONA</option>
-                        <option value="naoConfiguravel">NÃO CONFIGURÁVEL</option>
-                        <option value="semValor">-</option>
-                    </select>
+                    <select id="Situação" name="Situação" style="width: 10em" value=""></select>
                     <br>
                     <label for="Alteração">Alteração</label>
-                    <input type="text" id="Alteração" name="Alteração" style="width: 35em" value="">
+                    <input type="text" id="Alteração" name="Alteração" style="width: 450px" value="">
+                    </div>
                     <br>
-                </div>
-            </fieldset>
-            <button class="bt_cadastrar" type="button" name="cadastrar">Cadastrar</button>
+                    <button class="bt_cadastrar" type="button" name="cadastrar">Cadastrar</button>
         </form>
     </div>
-    <script>
-        // Adicionar evento de mudança ao select de modelos
-        document.getElementById("Modelo").addEventListener('change', function() {
-            atualizarREFeGrupo(this.value);
-        });
-    </script>
 </body>
 </html>
