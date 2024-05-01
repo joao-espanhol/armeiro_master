@@ -37,20 +37,16 @@ function myFunction(xml) {
     }
     document.getElementById("corpo-tabela").innerHTML = table;
 
+    preencherFiltros(); // Preencher os filtros após carregar os dados
+
     exibirPagina(paginaAtual);
 
     document.getElementById('botaoFiltrar').addEventListener('click', function() {
         console.log("Botão de filtrar clicado!");
     
         const filtros = {
-            'filtroRef': document.getElementById('filtroRef').value.toUpperCase(),
-            'filtroGrupo': document.getElementById('filtroGrupo').value.toUpperCase(),
-            'filtroModelo': document.getElementById('filtroModelo').value.toUpperCase(),
-            'filtroNS': document.getElementById('filtroNS').value.toUpperCase(),
-            'filtroBateria': document.getElementById('filtroBateria').value.toUpperCase(),
-            'filtroAntena': document.getElementById('filtroAntena').value.toUpperCase(),
-            'filtroSituacao': document.getElementById('filtroSituacao').value.toUpperCase(),
-            'filtroAlteracao': document.getElementById('filtroAlteracao').value.toUpperCase()
+            'filtroRef': document.getElementById('filtroRef').value.toUpperCase()
+            // Adicione os outros filtros aqui
         };
     
         console.log(filtros);
@@ -88,11 +84,17 @@ function exibirPagina(pagina) {
             linha.style.display = "none";
         }
     });
+
+    // Atualizar os botões de navegação
+    const botaoAnterior = document.getElementById('paginaAnterior');
+    const botaoSeguinte = document.getElementById('paginaSeguinte');
+
+    botaoAnterior.disabled = pagina === 1;
+    botaoSeguinte.disabled = pagina === Math.ceil(todasLinhas.length / linhasPorPagina);
 }
 
 // Função para ir para a página anterior
 document.getElementById('paginaAnterior').addEventListener('click', function() {
-    console.log("Botão de página anterior clicado!");
     if (paginaAtual > 1) {
         paginaAtual--;
         exibirPagina(paginaAtual);
@@ -101,12 +103,146 @@ document.getElementById('paginaAnterior').addEventListener('click', function() {
 
 // Função para ir para a próxima página
 document.getElementById('paginaSeguinte').addEventListener('click', function() {
-    console.log("Botão de próxima página clicado!");
     const todasLinhas = document.querySelectorAll("#corpo-tabela tr");
-
     if (paginaAtual < Math.ceil(todasLinhas.length / linhasPorPagina)) {
         paginaAtual++;
         exibirPagina(paginaAtual);
     }
 });
 
+
+// Função para preencher os menus dropdown com opções únicas da tabela
+function preencherFiltros() {
+    const tabela = document.getElementById('tabela');
+    const numRows = tabela.rows.length;
+    const numCols = tabela.rows[0].cells.length;
+    const dropdowns = document.querySelectorAll(".filtro-dropdown");
+
+    dropdowns.forEach(dropdown => {
+        dropdown.addEventListener('change', function() {
+            filtrarTabela();
+        });
+    });
+    
+    
+
+    const nomesFiltros = [
+        "REF", "Grupo", "Modelo", "Número de Série",
+        "Bateria", "Antena", "Situação", "Alteração"
+    ];
+
+    for (let i = 0; i < numCols; i++) {
+        const opcoes = {};
+
+        // Preencher objeto de opções únicas para a coluna
+        for (let j = 1; j < numRows; j++) {
+            const celula = tabela.rows[j].cells[i];
+            const valorCelula = celula.textContent.trim();
+            opcoes[valorCelula] = true;
+        }
+
+        // Preencher o menu dropdown com opções únicas
+        const opcoesUnicas = Object.keys(opcoes);
+        const dropdown = dropdowns[i];
+        dropdown.innerHTML = ''; // Limpar opções existentes
+
+        const label = document.createElement('label');
+        label.textContent = nomesFiltros[i] + ": ";
+        dropdown.parentNode.insertBefore(label, dropdown);
+
+        const optionVazia = document.createElement('option');
+        optionVazia.value = "";
+        optionVazia.textContent = "Selecione...";
+        dropdown.appendChild(optionVazia);
+
+        opcoesUnicas.forEach(opcao => {
+            const option = document.createElement('option');
+            option.value = opcao;
+            option.textContent = opcao;
+            dropdown.appendChild(option);
+        });
+    }
+}
+
+// Função para filtrar a tabela com base nas opções selecionadas nos dropdowns
+function filtrarTabela() {
+    const todasLinhas = document.querySelectorAll("#corpo-tabela tr");
+    const filtros = {};
+
+    // Obter os valores selecionados em cada dropdown e armazená-los em um objeto de filtros
+    const dropdowns = document.getElementsByClassName('filtro-dropdown');
+    for (let i = 0; i < dropdowns.length; i++) {
+        const filtro = dropdowns[i].id.replace('filtro', '').toLowerCase();
+        filtros[filtro] = dropdowns[i].value.toUpperCase();
+    }
+
+    todasLinhas.forEach(function(linha) {
+        let mostrar = true;
+
+        // Verificar se a linha atende aos critérios de filtro
+        for (let filtro in filtros) {
+            if (filtros[filtro] !== "") {
+                const indiceColuna = Array.from(linha.cells).findIndex(cell => cell.textContent.toUpperCase().includes(filtros[filtro]));
+                if (indiceColuna === -1) {
+                    mostrar = false;
+                    break;
+                }
+            }
+        }
+
+        // Ocultar ou exibir a linha conforme necessário
+        linha.style.display = mostrar ? "" : "none";
+    });
+
+    // Atualizar as opções dos outros dropdowns com base na seleção atual
+    for (let i = 0; i < dropdowns.length; i++) {
+        const filtro = dropdowns[i].id.replace('filtro', '').toLowerCase();
+        atualizarOpcoesDropdown(filtro, filtros);
+    }
+}
+
+// Função para atualizar as opções dos dropdowns com base na seleção atual
+function atualizarOpcoesDropdown(filtroAtual, filtros) {
+    const todasLinhas = document.querySelectorAll("#corpo-tabela tr");
+    const opcoes = {};
+
+    // Preencher objeto de opções únicas para o filtro atual
+    todasLinhas.forEach(function(linha) {
+        const indiceColuna = Array.from(linha.cells).findIndex(cell => cell.id === 'filtro' + filtroAtual);
+        const textoCelula = linha.cells[indiceColuna].textContent.toUpperCase();
+        opcoes[textoCelula] = true;
+    });
+
+    // Atualizar o dropdown correspondente com as opções únicas
+    const dropdown = document.getElementById('filtro' + filtroAtual);
+    dropdown.innerHTML = ''; // Limpar opções existentes
+
+    // Adicionar uma opção vazia como a primeira opção
+    const optionVazia = document.createElement('option');
+    optionVazia.value = "";
+    optionVazia.textContent = "Selecione...";
+    dropdown.appendChild(optionVazia);
+
+    Object.keys(opcoes).forEach(opcao => {
+        const option = document.createElement('option');
+        option.value = opcao;
+        option.textContent = opcao;
+        dropdown.appendChild(option);
+    });
+
+    // Restaurar a seleção anterior se ainda estiver disponível
+    if (filtros[filtroAtual] !== "") {
+        dropdown.value = filtros[filtroAtual];
+    }
+}
+
+// Adicionar o evento de clique ao botão de filtrar
+document.getElementById('botaoFiltrar').addEventListener('click', function() {
+    console.log("Botão de filtrar clicado!");
+    filtrarTabela();
+});
+
+
+window.onload = function() {
+    loadDoc();
+};
