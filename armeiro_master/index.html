@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="styles/style.css" rel="stylesheet" type="text/css">
+    <script src="scripts/scripts.js"></script>
+
+    <title>Armeiro Master</title>
+</head>
+<body onload="loadMateriais()">
+    <div class="container">
+        <h1>Armeiro Master</h1>
+    </div>
+    <div id="MenuLateral">
+        <nav>
+            <ul class="topnav">
+                <li><a href="index.html">Rádios Cadastrados</a></li>
+                <li><a href="cadastro.html">Cadastro de Rádios</a></li>
+                <li style="float:right"><a class="ajuda" href="#ajuda">Ajuda</a></li>
+            </ul>
+        </nav>
+    </div>
+   <div class="campos">
+        <section>
+            <h2>Radios Cadastrados</h2>
+            <div class="filtros">
+                <select id="filtroRef" class="filtro-dropdown">
+                    <option value="">Filtrar REF</option>
+                    <!-- Adicione mais opções conforme necessário -->
+                </select>
+    
+                <select id="filtroGrupo" class="filtro-dropdown">
+                    <option value="">Filtrar Grupo</option>
+                    <!-- Adicione mais opções conforme necessário -->
+                </select>
+    
+                <select id="filtroModelo" class="filtro-dropdown">
+                    <option value="">Filtrar Modelo</option>
+                    <!-- Adicione mais opções conforme necessário -->
+                </select>
+    
+                <select id="filtroNS" class="filtro-dropdown">
+                    <option value="">Filtrar Número de Série</option>
+                    <!-- Adicione mais opções conforme necessário -->
+                </select>
+    
+                <select id="filtroBateria" class="filtro-dropdown">
+                    <option value="">Filtrar Bateria</option>
+                    <!-- Adicione mais opções conforme necessário -->
+                </select>
+    
+                <select id="filtroAntena" class="filtro-dropdown">
+                    <option value="">Filtrar Antena</option>
+                    <!-- Adicione mais opções conforme necessário -->
+                </select>
+    
+                <select id="filtroSituacao" class="filtro-dropdown">
+                    <option value="">Filtrar Situação</option>
+                    <!-- Adicione mais opções conforme necessário -->
+                </select>
+    
+                <select id="filtroAlteracao" class="filtro-dropdown">
+                    <option value="">Filtrar Alteração</option>
+                    <!-- Adicione mais opções conforme necessário -->
+                </select>
+            </div>
+            <table id="tabela">
+                <thead>
+                    <tr>
+                        <th>REF</th>
+                        <th>Grupo</th>
+                        <th>Modelo</th>
+                        <th>Número de Série</th>
+                        <th>Bateria</th>
+                        <th>Antena</th>
+                        <th>Situação</th>
+                        <th>Alteração</th>
+                        <th>Excluir</th>
+                    </tr>
+                </thead>
+                <tbody id="corpo-tabela">
+
+                </tbody>
+            </table>
+            <div class="paginacao">
+                <button id="paginaAnterior">Página Anterior</button>
+                <button id="paginaSeguinte">Próxima Página</button>
+            </div>
+        </section>
+   </div>
+    
+    
+</body>
+</html>

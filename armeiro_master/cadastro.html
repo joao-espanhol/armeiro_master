@@ -25,32 +25,28 @@
     <h3> Cadastrar Rádio</h3>
     <div class="Cadastro">
         <form>
-                    <div class="grupoCadastro">
-                        <label for="REF">REF</label>
-                        <input type="text" id="REF" name="REF" style="width: 450px" value="">
-                    </div>
-                    <div class="grupoCadastro">
-                        <label for="Grupo">Grupo</label>
-                        <select id="Grupo" name="Grupo" style="width: 470px" value=""> </select>
-                    </div>
-                    <div class="grupoCadastro">
+            <fieldset class="campos">
+                <div>
+                    <br>
+                    <label for="REF">REF</label>
+                    <input type="text" id="REF" name="REF" style="width: 5em" value="">
+                    <label for="Grupo">Grupo</label>
+                    <select id="Grupo" name="Grupo" style="width: 10em" value="">
+                    </select>
                     <label for="Modelo">Modelo</label>
-                    <select id="Modelo" name="Modelo" style="width: 450px" value=""></select>
-                    <button class="bt_modelo" type="button" name="modelo">+</button>
-                    </div>
-                    <div class="grupoCadastro">
+                    <select id="Modelo" name="Modelo" style="width: 15em" value=""></select>
+                    <br>
                     <label for="Bateria">Bateria</label>
-                    <select id="Bateria" name="Bateria" style="width: 470px" value=""></select>
-                    </div>
-                    <div class="grupoCadastro">
+                    <select type="combobox" id="Bateria" name="Bateria" style="width: 10em" value="">
+                        <option value="OK">OK</option>
+                        <option value="Não há">Não há</option>
+                        <option value="Baixada">Baixada</option>
+                        <option value="-">-</option>
                     <label for="Antena">Antena</label>
-                    <input type="text" id="Antena" name="Antena" style="width: 450px" value="">
-                    </div>
-                    <div class="grupoCadastro">
+                    <input type="text" id="Antena" name="Antena" style="width: 10em" value="">
                     <label for="Situação">Situação</label>
-                    <select id="Situação" name="Situação" style="width: 470px" value=""></select>
-                    </div>
-                    <div class="grupoCadastro">
+                    <select id="Situação" name="Situação" style="width: 10em" value=""></select>
+                    <br>
                     <label for="Alteração">Alteração</label>
                     <input type="text" id="Alteração" name="Alteração" style="width: 450px" value="">
                     </div>
@@ -58,6 +54,5 @@
                     <button class="bt_cadastrar" type="button" name="cadastrar">Cadastrar</button>
         </form>
     </div>
-
 </body>
 </html>
