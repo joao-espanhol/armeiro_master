@@ -7,7 +7,6 @@ function loadDoc() {
   }
   xhttp.open("GET", "data/materiais.xml");
   xhttp.send();
-  console.log("2");
 }
 
 console.log("3");
@@ -33,7 +32,7 @@ function myFunction(xml) {
             x[i].getElementsByTagName("situacao")[0].childNodes[0].nodeValue +
             "</td><td>" +
             x[i].getElementsByTagName("alteracao")[0].childNodes[0].nodeValue +
-            "</td></tr>";
+            "</td><td><button class='delete-icon' onclick='excluirRadio(" + i + ", xmlDoc)'><img src='lixeira.png'></button></td></tr>";
     }
     document.getElementById("corpo-tabela").innerHTML = table;
 
@@ -45,10 +44,16 @@ function myFunction(xml) {
         console.log("Botão de filtrar clicado!");
     
         const filtros = {
-            'filtroRef': document.getElementById('filtroRef').value.toUpperCase()
-            // Adicione os outros filtros aqui
+            'filtroRef': document.getElementById('filtroRef').value.toUpperCase(),
+            'filtroGrupo': document.getElementById('filtroGrupo').value.toUpperCase(),
+            'filtroModelo': document.getElementById('filtroModelo').value.toUpperCase(),
+            'filtroNS': document.getElementById('filtroNS').value.toUpperCase(),
+            'filtroBateria': document.getElementById('filtroBateria').value.toUpperCase(),
+            'filtroAntena': document.getElementById('filtroAntena').value.toUpperCase(),
+            'filtroSituacao': document.getElementById('filtroSituacao').value.toUpperCase(),
+            'filtroAlteracao': document.getElementById('filtroAlteracao').value.toUpperCase(),
         };
-    
+
         console.log(filtros);
     
         const todasLinhas = document.querySelectorAll("#corpo-tabela tr");
@@ -66,51 +71,14 @@ function myFunction(xml) {
             linha.style.display = mostrar ? "" : "none";
         });
     });   
-
 }
 
-// Variáveis para controlar a página atual e o número de linhas por página
-let paginaAtual = 1;
-const linhasPorPagina = 15;
+function excluirRadio(index, xmlDoc){
+    console.log("Exlcuindo rádio" + index);
+    x = xmlDoc.getElementsByTagName("radio")[index];
 
-// Função para exibir as linhas da tabela de acordo com a página atual
-function exibirPagina(pagina) {
-    const todasLinhas = document.querySelectorAll("#corpo-tabela tr");
-
-    todasLinhas.forEach(function(linha, indice) {
-        if (indice >= (pagina - 1) * linhasPorPagina && indice < pagina * linhasPorPagina) {
-            linha.style.display = "";
-        } else {
-            linha.style.display = "none";
-        }
-    });
-
-    // Atualizar os botões de navegação
-    const botaoAnterior = document.getElementById('paginaAnterior');
-    const botaoSeguinte = document.getElementById('paginaSeguinte');
-
-    botaoAnterior.disabled = pagina === 1;
-    botaoSeguinte.disabled = pagina === Math.ceil(todasLinhas.length / linhasPorPagina);
+    x.parentNode.removeChild(x);
 }
-
-// Função para ir para a página anterior
-document.getElementById('paginaAnterior').addEventListener('click', function() {
-    if (paginaAtual > 1) {
-        paginaAtual--;
-        exibirPagina(paginaAtual);
-    }
-});
-
-// Função para ir para a próxima página
-document.getElementById('paginaSeguinte').addEventListener('click', function() {
-    const todasLinhas = document.querySelectorAll("#corpo-tabela tr");
-    if (paginaAtual < Math.ceil(todasLinhas.length / linhasPorPagina)) {
-        paginaAtual++;
-        exibirPagina(paginaAtual);
-    }
-});
-
-
 // Função para preencher os menus dropdown com opções únicas da tabela
 function preencherFiltros() {
     const tabela = document.getElementById('tabela');
@@ -118,51 +86,46 @@ function preencherFiltros() {
     const numCols = tabela.rows[0].cells.length;
     const dropdowns = document.querySelectorAll(".filtro-dropdown");
 
-    dropdowns.forEach(dropdown => {
-        dropdown.addEventListener('change', function() {
-            filtrarTabela();
-        });
-    });
-    
-    
-
     const nomesFiltros = [
         "REF", "Grupo", "Modelo", "Número de Série",
         "Bateria", "Antena", "Situação", "Alteração"
     ];
 
-    for (let i = 0; i < numCols; i++) {
-        const opcoes = {};
-
-        // Preencher objeto de opções únicas para a coluna
-        for (let j = 1; j < numRows; j++) {
-            const celula = tabela.rows[j].cells[i];
-            const valorCelula = celula.textContent.trim();
-            opcoes[valorCelula] = true;
-        }
-
-        // Preencher o menu dropdown com opções únicas
-        const opcoesUnicas = Object.keys(opcoes);
-        const dropdown = dropdowns[i];
+    // Preencher os dropdowns com opções únicas para cada coluna da tabela
+    dropdowns.forEach((dropdown, index) => {
         dropdown.innerHTML = ''; // Limpar opções existentes
 
-        const label = document.createElement('label');
-        label.textContent = nomesFiltros[i] + ": ";
-        dropdown.parentNode.insertBefore(label, dropdown);
+        const opcoes = new Set(); // Usar um conjunto para garantir opções únicas
 
+        // Preencher conjunto com opções únicas para a coluna correspondente
+        for (let j = 1; j < numRows; j++) {
+            const celula = tabela.rows[j].cells[index];
+            const valorCelula = celula.textContent.trim();
+            opcoes.add(valorCelula);
+        }
+
+        // Adicionar opções únicas ao dropdown
         const optionVazia = document.createElement('option');
         optionVazia.value = "";
         optionVazia.textContent = "Selecione...";
         dropdown.appendChild(optionVazia);
 
-        opcoesUnicas.forEach(opcao => {
+        opcoes.forEach(opcao => {
             const option = document.createElement('option');
             option.value = opcao;
             option.textContent = opcao;
             dropdown.appendChild(option);
         });
-    }
+    });
+
+    // Adicionar evento de mudança para acionar a filtragem da tabela
+    dropdowns.forEach(dropdown => {
+        dropdown.addEventListener('change', function() {
+            filtrarTabela();
+        });
+    });
 }
+
 
 // Função para filtrar a tabela com base nas opções selecionadas nos dropdowns
 function filtrarTabela() {
@@ -246,3 +209,45 @@ document.getElementById('botaoFiltrar').addEventListener('click', function() {
 window.onload = function() {
     loadDoc();
 };
+
+
+//Cadastro dos rádios
+
+document.querySelector('.bt_cadastrar').addEventListener('click', function() {
+    cadastrarRadio();
+});
+
+function cadastrarRadio() {
+    const ref = document.getElementById('REF').value;
+    const grupo = document.getElementById('Grupo').value;
+    const modelo = document.getElementById('Modelo').value;
+    const bateria = document.getElementById('Bateria').value;
+    const antena = document.getElementById('Antena').value;
+    const situacao = document.getElementById('Situação').value;
+    const alteracao = document.getElementById('Alteração').value;
+
+    // Crie um novo objeto XML para o rádio
+    const novoRadio = `
+        <radio>
+            <ref>${ref}</ref>
+            <grupo>${grupo}</grupo>
+            <modelo>${modelo}</modelo>
+            <ns></ns>
+            <bateria>${bateria}</bateria>
+            <antena>${antena}</antena>
+            <situacao>${situacao}</situacao>
+            <alteracao>${alteracao}</alteracao>
+        </radio>
+    `;
+
+    // Carregar o XML atual
+    const xhttp = new XMLHttpRequest();
+    xhttp.onload = function() {
+        const xmlDoc = xhttp.responseXML;
+        const radios = xmlDoc.getElementsByTagName("radios")[0];
+        radios.innerHTML += novoRadio;
+        console.log("Novo rádio cadastrado com sucesso!");
+    }
+    xhttp.open("GET", "data/materiais.xml"); // Substitua pelo caminho do seu arquivo XML
+    xhttp.send();
+}
