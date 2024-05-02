@@ -372,9 +372,77 @@ button
 
 /* MENU INICIAL */
 
-.MenuInicial 
-{
-  width: 100%;
+
+header {
+  background-image: url('imgRadio.jpg');
+  background-size: cover;
+  color: white;
+  padding: 50px 0;
   text-align: center;
 }
 
+.container {
+  width: 80%;
+  margin: 0 auto;
+}
+
+
+main {
+  display: flex;
+  justify-content: space-around;
+  padding: 20px 0;
+}
+
+
+.container {
+  position: relative;
+  text-align: center;
+}
+
+.logo {
+  width: 60%; 
+  height: 100%; 
+  filter: blur(2px); /* adicione um efeito de desfoque à imagem do logo */
+  background-size: cover;
+}
+
+.content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.content h1, .content p {
+  margin: 0;
+}
+
+.radios-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.radio {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.radio img {
+  width: 100%;
+  height: auto;
+}
+
+.radio-info {
+  padding: 20px;
+}
+
+.radio-info h2 {
+  margin-top: 0;
+}
+
+.radio-info p {
+  margin-bottom: 0;
+}
