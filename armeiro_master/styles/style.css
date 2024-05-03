@@ -16,19 +16,6 @@ p {
 
 /* TITULO */
 
-.container {
-  text-align: center;
-  margin-top: 100px; /* Espaçamento acima do h1 */
-}
-
-h1 {
-  font-size: 48px;
-  color: #556b2f; /* Tom de verde militar */
-  background-image: url("img/radioteste.jpg"); /* URL da imagem */
-  background-size: cover;
-  background-position: center;
-  padding: 20px; /* Espaçamento interno */
-}
 
 h2
 {
@@ -59,75 +46,6 @@ h4
   margin: 0 0 0 0;
   text-align: center;
 }
-
-/* MENU */
-
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #333;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    
-  }
-  
-  ul.topnav {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #333;
-  }
-  
-  ul.topnav li {float: left;}
-  
-  ul.topnav li a {
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-  }
-  
-  ul.topnav li a:hover:not(.active) {background-color: #111;}
-  
-  ul.topnav li a.active {background-color: #04AA6D;}
-  
-  ul.topnav li.right {float: right;}
-  
-  @media screen and (max-width: 600px) {
-    ul.topnav li.right, 
-    ul.topnav li {float: none;}
-  }
-  li {
-    float: left;
-    border-right: 1px solid #bbb;
-  }
-  
-  li a {
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-  }
-
-  li:last-child {
-    border-right: none;
-  }
-  
- 
-  li a:hover {
-    background-color: #111;
-  }
-
-  .ajuda 
-  {
-    background-color: #4d8357;
-  }
 
 
 /* MENU DE CADASTROS */
@@ -333,6 +251,11 @@ button
 
 /* FILTROS */ 
 
+.hidden {
+  display: none;
+}
+
+
 .filtros
 {
   top: 300px;
@@ -347,23 +270,11 @@ button
   font-size: 16px;
   transition: left 0.3s ease; /* Adiciona transição suave ao movimento */
   position:fixed;
-  z-index: 1;
+  z-index: -1;
 
 }
 
-@media screen and (max-width: 600px) {
-  /* Ajusta o posicionamento e o tamanho da caixa de filtros para telas menores */
-  .filtros {
-      top: 100px; /* Ajuste conforme necessário */
-      left: 10px;
-      width: 90%; /* Largura ajustada */
-      max-height: 80vh; /* Altura máxima ajustada como 80% da altura da viewport */
-      overflow-y: auto; /* Adiciona uma barra de rolagem vertical quando necessário */
-      border-radius: 10px; /* Adiciona borda arredondada */
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Sombra */
-      margin: 0 auto; /* Centraliza horizontalmente */
-  }
-}
+
 
 
 /* MENU INICIAL */
