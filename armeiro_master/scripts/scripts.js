@@ -2,94 +2,33 @@
 function loadMateriais() {
     const xhttp = new XMLHttpRequest();
     xhttp.onload = function() {
-      processarMateriais(this);
       myFunction(this);
     }
     xhttp.open("GET", "data/materiais.xml");
     xhttp.send();
   }
   
-  function loadModelos() {
-      const xhttp = new XMLHttpRequest();
-      xhttp.onload = function() {
-          processarModelos(this);
-      }
-      xhttp.open("GET", "data/modelos.xml");
-      xhttp.send();
-  }
-
-    // Processar XML de materiais
-function processarMateriais(xml) {
-        // Armazenar o XML em uma variável global para acessá-lo posteriormente
-        window.materiaisXML = xml.responseXML;
-}
-
- // Processar XML de modelos
- function processarModelos(xml) {
-    const xmlDoc = xml.responseXML;
-    const modelos = xmlDoc.getElementsByTagName("modelo");
-    const selectModelo = document.getElementById("Modelo");
-    
-    // Preencher o select de modelos com os dados do XML
-    for (let i = 0; i < modelos.length; i++) {
-        const nomeModelo = modelos[i].getElementsByTagName("nome")[0].textContent;
-        const option = document.createElement("option");
-        option.text = nomeModelo;
-        option.value = nomeModelo;
-        selectModelo.add(option);
+function loadModelos() {
+    const xhttp = new XMLHttpRequest();
+    xhttp.onload = function() {
+        processarModelos(this);
     }
-    
-    // Adicionar evento de mudança ao select de modelos
-    selectModelo.addEventListener('change', function() {
-      console.log("Modelo selecionado:", this.value);
-      atualizarREFeGrupo(this.value);
-    });
+    xhttp.open("GET", "data/modelos.xml");
+    xhttp.send();
 }
 
-function atualizarREFeGrupo(modeloSelecionado) {
-  // Esperar até que o DOM esteja completamente carregado
-  document.addEventListener("DOMContentLoaded", function() {
-      const xmlDoc = window.materiaisXML;
-      const radios = xmlDoc.getElementsByTagName("radio");
-      let maiorRef = 0;
-      let grupoModelo = '';
-
-      // Encontrar o maior REF para o modelo selecionado
-      for (let i = 0; i < radios.length; i++) {
-          const modeloRadio = radios[i].getElementsByTagName("modelo")[0].textContent;
-          const ref = parseInt(radios[i].getElementsByTagName("ref")[0].textContent);
-          if (modeloRadio === modeloSelecionado && ref > maiorRef) {
-              maiorRef = ref;
-          }
-      }
-
-      // Encontrar o grupo do modelo selecionado
-      const modelosXML = xmlDoc.getElementsByTagName("modelo");
-      for (let i = 0; i < modelosXML.length; i++) {
-          const nomeModelo = modelosXML[i].getElementsByTagName("nome")[0].textContent;
-          if (nomeModelo === modeloSelecionado) {
-              grupoModelo = modelosXML[i].getElementsByTagName("grupo")[0].textContent;
-              break;
-          }
-      }
-
-      // Verificar se os elementos com os IDs "REF" e "Grupo" existem antes de acessá-los
-      const elementoREF = document.getElementById("REF");
-      const elementoGrupo = document.getElementById("Grupo");
-      if (elementoREF && elementoGrupo) {
-          // Preencher os campos REF e Grupo com os valores encontrados
-          elementoREF.value = maiorRef + 1;
-          elementoGrupo.value = grupoModelo;
-      } else {
-          console.error("Elementos 'REF' e/ou 'Grupo' não encontrados no DOM.");
-      }
-  });
+function preencherDropdown(xmlDoc, dropdown){
+    var options = xmlDoc.getElementsByTagName("grupo");
+    for (var i = 0; i < options.lenght; i++){
+        var optionText = options[i].textContent;
+        var optionValue = options[i].getAttribute("value") || otrionText;
+        var option = new Option(optionText, optionValue);
+        dropdown.appendChild(option);
+    }
 }
-
 
 // Carregar os XMLs ao carregar a página
 window.onload = function() {
-      console.log("Pagina carregada... carregando xml");
     loadMateriais();
     loadModelos();
 };
