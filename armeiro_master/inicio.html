@@ -3,58 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="styles/style.css" rel="stylesheet" type="text/css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/carousel/">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
+    <link href="carousel.css" rel="stylesheet">
+    <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+    
     <script src="scripts/scripts.js"></script>
 
     <title>Armeiro Master</title>
 </head>
 <body>
-    <header>
-        <nav>
-            <div class="container">
-                <img src="imgRadio.jpg" alt="Logo" class="logo">
-                <div class="content">
-                    <h1>Armeiro Master</h1>
-                    <p>Sua descrição</p>
-                </div>
-            </div>
-            <ul class="menu">
-                <li><a href="inicio.html">Inicio</a></li>
-                <li><a href="radios.html">Rádios Cadastrados</a></li>
-                <li><a href="cadastro.html">Cadastro de Rádios</a></li>
-                <li style="float:right"><a class="ajuda" href="ajuda.html">Ajuda</a></li>
+    <header data-bs-theme="dark">
+      <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="inicio.html">Armeiro Master</a>
+            <ul class="navbar-nav me-auto mb-2 mb-md-0">
+              <li class="nav-item">
+                <a class="nav-link" href="radios.html">Rádios Cadastrados</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="cadastro.html">Cadastro</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="ajuda.html">Ajuda</a>
+              </li>
             </ul>
-        </nav>
-    </header>
-    <section class="hero">
-        <h2>Bem-vindo ao Armeiro Master</h2>
-        <p> Neste site voce pode conhecer e aaaaaaaa</p>
-    </section>
-    <main class="radios-container">
-    <section class="radio">
-        <div class="radio-info">
-          <h2>Radio 1</h2>
-          <p>Descrição do Radio 1...</p>
+            </form>
+          </div>
         </div>
-        <img src="radioteste.jpg" alt="Radio 1">
-      </section>
-      <section class="radio">
-        <div class="radio-info">
-          <h2>Radio 2</h2>
-          <p>Descrição do Radio 2...</p>
+      </nav>
+    </header>  
+
+
+
+    <main>
+
+      <section class="py-5 text-center container">
+        <div class="row py-lg-5">
+          <div class="col-lg-6 col-md-8 mx-auto">
+            <h1 class="fw-light">Armeiro Master</h1>
+            <p class="lead text-body-secondary">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
+            <img src="img/imgRadio.jpeg" class="img-fluid" alt="...">
+
+          </div>
         </div>
-        <img src="radioteste.jpg" alt="Radio 2">
       </section>
-      <section class="radio">
-        <div class="radio-info">
-          <h2>Radio 3</h2>
-          <p>Descrição do Radio 3...</p>
+
+      <!-- Marketing messaging and featurettes
+      ================================================== -->
+      <!-- Wrap the rest of the page in another container to center all the content. -->
+
+      <div class="container marketing">
+
+        <!-- START THE FEATURETTES -->
+
+        <hr class="featurette-divider">
+
+        <div class="row featurette">
+          <div class="col-md-7">
+            <h2 class="featurette-heading fw-normal lh-1">Radio Modelo 001 <span class="text-body-secondary">Radio mais utilizado</span></h2>
+            <p class="lead">Esse rádio é o mais cadastrado, ele é bom nisso e naquilo</p>
+          </div>
+          <div class="col-md-5">
+            <img src="img/radioteste.jpg" class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" alt="Descrição da imagem">
+          </div>
         </div>
-        <img src="radioteste.jpg" alt="Radio 3">
-      </section>
+
+        <hr class="featurette-divider">
+
+        <div class="row featurette">
+          <div class="col-md-7 order-md-2">
+            <h2 class="featurette-heading fw-normal lh-1">modelo de radio 002 <span class="text-body-secondary">Radio de maior alcance</span></h2>
+            <p class="lead">detalhes sobre o radio</p>
+          </div>
+          <div class="col-md-5 order-md-1">
+            <img src="img/radioteste.jpg" class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" alt="Descrição da imagem">
+          </div>
+        </div>
+
+        <hr class="featurette-divider">
+
+        <div class="row featurette">
+          <div class="col-md-7">
+            <h2 class="featurette-heading fw-normal lh-1">Modelo de radio 003. <span class="text-body-secondary">Radio mais antigo.</span></h2>
+            <p class="lead">Criado em XXXX</p>
+          </div>
+          <div class="col-md-5">
+            <img src="img/radioteste.jpg" class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" alt="Descrição da imagem">
+          </div>
+        </div>
+
+        <hr class="featurette-divider">
+
+        <!-- /END THE FEATURETTES -->
+
+      </div><!-- /.container -->
+
+
+      <!-- FOOTER -->
+      <footer class="container">
+        <p>&copy; Armeiro Master 2024 &middot;</p>
+      </footer>
     </main>
-    <footer>
-        <p>© 2024 Armeiro Master. Todos os direitos reservados.</p>
-    </footer>
+ 
 </body>
 </html>
