@@ -15,29 +15,29 @@
 
     <title>Cadastro de Rádios</title>
 </head>
-<body onload="loadMateriais()">
+<body onload="loadMateriais(), loadModelos()">
   <header>
         <nav class="navbar navbar-dark bg-dark fixed-top">
               <div class="container-fluid">
-                <a class="navbar-brand" href="inicio.html">Armeiro Master</a>
+                <a class="navbar-brand font-monospace" href="inicio.html">Armeiro Master</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
                   <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
                     <div class="offcanvas-header">
-                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Armeiro Master</h5>
+                    <h5 class="offcanvas-title font-monospace" id="offcanvasNavbarLabel">Armeiro Master</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                     </div>
                       <div class="offcanvas-body">
                         <ul class="navbar-nav justify-content-end flex-grow-1 pe-5">
                             <li class="nav-item">
-                              <a class="nav-link"  href="radios.html">Rádios Cadastrados</a>
+                              <a class="nav-link font-monospace"  href="radios.html">Rádios Cadastrados</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="cadastro.html">Cadastrar Rádios</a>
+                                <a class="nav-link font-monospace" href="cadastro.html">Cadastrar Rádios</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="ajuda.html">Ajuda</a>
+                                <a class="nav-link font-monospace" href="ajuda.html">Ajuda</a>
                             </li>
                         </ul>
                       </div>
@@ -49,7 +49,7 @@
       <div class="p-3 mb-2 bg-success-subtle text-success-emphasis">
           <div class="row py-lg-5">
               <div class="col-lg-6 col-md-8 mx-auto">
-                  <h1 class="fw-light">Cadastro de Rádios</h1>
+                  <h1 class="fw-lighter font-monospace">Cadastro de Rádios</h1>
               </div>
             </div>
           </div>
@@ -59,26 +59,28 @@
             <div class="Cadastro">
                 <div class="mb-3">
                     <form class="row gy-2 gx-3 align-items-center">
-                        <label for="cd_REF" class="form-label">REF</label>
-                        <input class="form-control" id="cd_REF" type="text" placeholder="Referência" aria-label="Disabled input example" disabled>
 
-                        <label for="cd_Grupo" class="form-label">Grupo</label>
-                        <input class="form-control" id="cd_Grupo" type="text" placeholder="Grupo" aria-label="Disabled input example" disabled>
+                        <label for="cd_REF" class="form-label font-monospace">REF</label>
+                        <input class="form-control font-monospace" id="cd_REF" type="text" placeholder="Referência" aria-label="Disabled input example" disabled>
 
-                        <label for="cd_Modelo" class="form-label">Modelo</label>
-                        <select id="cd_Modelo" class="form-select" aria-label="Default select example">
+
+                        <label for="cd_Grupo" class="form-label font-monospace">Grupo</label>
+                        <input class="form-control font-monospace" id="cd_Grupo" type="text" placeholder="Grupo" aria-label="Disabled input example" disabled>
+
+                        <label for="cd_Modelo" class="form-label font-monospace">Modelo</label>
+                        <select id="cd_Modelo" class="form-select font-monospace" aria-label="Default select example">
                             <option selected>Selecione o modelo</option>
                         </select>
-                        <div id="passwordHelpBlock" class="form-text">
+                        <div id="passwordHelpBlock" class="form-text font-monospace">
                           Não encontrou o modelo? Cadastre um novo abaixo:
                         </div>
 
                         <form class="row g-3">
                             <div class="col-auto">
-                              <input type="text" class="form-control form-control-sm" id="cd_novoModelo" placeholder="Modelo">
+                              <input type="text" class="form-control form-control-sm font-monospace" id="cd_novoModelo" placeholder="Modelo">
                             </div>
                             <div class="col-auto">
-                              <select  id="cd_novoGrupo" class="form-select" aria-label="Default select example">
+                              <select  id="cd_novoGrupo" class="form-select font-monospace" aria-label="Default select example">
                                 <option selected>Grupo</option>
                                 <option value="GRUPO 1">GRUPO 1</option>
                                 <option value="GRUPO 2">GRUPO 2</option>
@@ -92,12 +94,12 @@
                               </select>
                             </div>
                             <div class="col-auto">
-                              <button type="button" class="btn btn-outline-success" id="bt_CadastrarModelo">Cadastrar</button>
+                              <button type="button" class="btn btn-outline-success font-monospace" id="bt_CadastrarModelo">Cadastrar</button>
                             </div>
                           </form>
 
-                        <label for="cd_Bateria" class="form-label">Bateria</label>
-                        <select  id="cd_Bateria" class="form-select" aria-label="Default select example">
+                        <label for="cd_Bateria" class="form-label font-monospace">Bateria</label>
+                        <select  id="cd_Bateria" class="form-select font-monospace" aria-label="Default select example">
                             <option selected>Status da Bateria</option>
                             <option value="OK">OK</option>
                             <option value="BAIXADA">BAIXADA</option>
@@ -105,11 +107,11 @@
                             <option value="-">-</option>
                         </select>
 
-                        <label for="cd_NumeroSerie" class="form-label">Número de Série</label>
-                        <input type="text" class="form-control" id="cd_NumeroSerie" placeholder="Num de Série">
+                        <label for="cd_NumeroSerie" class="form-label font-monospace">Número de Série</label>
+                        <input type="text" class="form-control font-monospace" id="cd_NumeroSerie" placeholder="Num de Série">
 
-                        <label for="cd_Antena" class="form-label">Antena</label>
-                        <select id="cd_Antena" class="form-select" aria-label="Default select example">
+                        <label for="cd_Antena" class="form-label font-monospace">Antena</label>
+                        <select id="cd_Antena" class="form-select font-monospace" aria-label="Default select example">
                             <option selected>Status da Antena</option>
                             <option value="OK">OK</option>
                             <option value="BAIXADA">BAIXADA</option>
@@ -118,8 +120,8 @@
                             <option value="-">-</option>
                         </select>
 
-                        <label for="cd_Situacao" class="form-label">Situação</label>
-                        <select id="cd_Situacao" class="form-select" aria-label="Default select example">
+                        <label for="cd_Situacao" class="form-label font-monospace">Situação</label>
+                        <select id="cd_Situacao" class="form-select font-monospace" aria-label="Default select example">
                             <option selected>Situação</option>
                             <option value="SEM ALTERAÇÃO">SEM ALTERAÇÃO</option>
                             <option value="DESATUALIZADO">DESATUALIZADO</option>
@@ -130,10 +132,10 @@
                         </select>
 
 
-                        <label for="cd_Alteracao" class="form-label">Alteração</label>
-                        <textarea class="form-control" id="cd_Alteracao" rows="3"></textarea>
-
-                        <button type="button" class="btn btn-outline-success" id="bt_Cadastrar">Cadastrar</button>
+                        <label for="cd_Alteracao" class="form-label font-monospace">Alteração</label>
+                        <textarea class="form-control" id="cd_Alteracao font-monospace" rows="3"></textarea>
+                        <br>
+                        <button type="button" class="btn btn-outline-success font-monospace" id="bt_Cadastrar">Cadastrar</button>
                     </form>
                 </div>
             </div>
