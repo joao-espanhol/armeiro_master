@@ -201,41 +201,51 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // FUNÇÕES DE CADASTRO DE NOVOS RÁDIOS
 
-// Adicionar o evento de clique ao botão de cadastrar rádio
 
-function cadastrarRadio() {
-    const ref = document.getElementById('REF').value;
-    const grupo = document.getElementById('Grupo').value;
-    const modelo = document.getElementById('Modelo').value;
-    const bateria = document.getElementById('Bateria').value;
-    const antena = document.getElementById('Antena').value;
-    const situacao = document.getElementById('Situação').value;
-    const alteracao = document.getElementById('Alteração').value;
+// Função para cadastrar um novo modelo de rádio
+function cadastrarNovoModelo() {
+    // Obter os valores inseridos pelo usuário
+    const novoModelo = document.getElementById('cd_novoModelo').value;
+    const novoGrupo = document.getElementById('cd_novoGrupo').value;
 
-    // Crie um novo objeto XML para o rádio
-    const novoRadio = `
-        <radio>
-            <ref>${ref}</ref>
-            <grupo>${grupo}</grupo>
-            <modelo>${modelo}</modelo>
-            <ns></ns>
-            <bateria>${bateria}</bateria>
-            <antena>${antena}</antena>
-            <situacao>${situacao}</situacao>
-            <alteracao>${alteracao}</alteracao>
-        </radio>
-    `;
-
-    // Carregar o XML atual
-    const xhttp = new XMLHttpRequest();
-    xhttp.onload = function() {
-        const xmlDoc = xhttp.responseXML;
-        const radios = xmlDoc.getElementsByTagName("radios")[0];
-        radios.innerHTML += novoRadio;
-        console.log("Novo rádio cadastrado com sucesso!");
+    // Verificar se os campos foram preenchidos
+    if (novoModelo.trim() === '' || novoGrupo === 'Grupo') {
+        alert('Por favor, preencha todos os campos.');
+        return;
     }
-    xhttp.open("GET", "data/materiais.xml"); // Substitua pelo caminho do seu arquivo XML
-    xhttp.send();
+
+    // Construir o objeto com os dados do novo modelo
+    const data = {
+        novoModelo: novoModelo,
+        novoGrupo: novoGrupo
+    };
+
+    // Enviar uma solicitação POST para o servidor
+    fetch('http://localhost:3000/cadastrar-modelo', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Erro ao cadastrar modelo');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Modelo cadastrado com sucesso:', data);
+        alert('Novo modelo cadastrado com sucesso.');
+    })
+    .catch(error => {
+        console.error('Erro ao cadastrar modelo:', error);
+        alert('Erro ao cadastrar novo modelo. Por favor, tente novamente mais tarde.');
+    });
 }
 
+// Adicionar um evento de clique ao botão de cadastrar novo modelo
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('bt_CadastrarModelo').addEventListener('click', cadastrarNovoModelo);
+});
 
