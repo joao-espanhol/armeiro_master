@@ -49,13 +49,30 @@
                     <select id="cd_Modelo" class="form-select" aria-label="Default select example">
                         <option selected>Selecione o modelo</option>
                     </select>
+                    <div id="passwordHelpBlock" class="form-text">
+                      Não encontrou o modelo? Cadastre um novo abaixo:
+                    </div>
 
                     <form class="row g-3">
                         <div class="col-auto">
-                          <input type="text" class="form-control form-control-sm" id="cd_novoModelo" placeholder="Cadastrar Modelo">
+                          <input type="text" class="form-control form-control-sm" id="cd_novoModelo" placeholder="Modelo">
                         </div>
                         <div class="col-auto">
-                          <button type="button" class="btn btn-outline-success">Cadastrar Novo Modelo</button>
+                          <select  id="cd_novoGrupo" class="form-select" aria-label="Default select example">
+                            <option selected>Grupo</option>
+                            <option value="GRUPO 1">GRUPO 1</option>
+                            <option value="GRUPO 2">GRUPO 2</option>
+                            <option value="GRUPO 3">GRUPO 3</option>
+                            <option value="GRUPO 4">GRUPO 4</option>
+                            <option value="GRUPO 5">GRUPO 5</option>
+                            <option value="GRUPO 6">GRUPO 6</option>
+                            <option value="GRUPO 7">GRUPO 7</option>
+                            <option value="GRUPO 8">GRUPO 8</option>
+                            <option value="GRUPO 9">GRUPO 9</option>
+                          </select>
+                        </div>
+                        <div class="col-auto">
+                          <button type="button" class="btn btn-outline-success" id="bt_CadastrarModelo">Cadastrar</button>
                         </div>
                       </form>
 
