@@ -170,28 +170,22 @@ function exportarTabela() {
     // Inicializar uma string para armazenar os dados CSV
     let csv = "REF,Grupo,Modelo,Número de Série,Bateria,Antena,Situação,Alteração\n";
 
-    // Iterar sobre as linhas da tabela filtrada
+    // Adicionar no CSV as linhas da tabela filtrada
     tabelaFiltrada.forEach(function(linha) {
-        // Verificar se a linha está visível (não filtrada)
         if (linha.style.display !== "none") {
-            // Iterar sobre as células da linha e adicionar os valores ao CSV
             const celulas = linha.querySelectorAll("td");
             celulas.forEach(function(celula, index) {
                 csv += celula.textContent;
-                // Adicionar uma vírgula se não for a última célula da linha
                 if (index < celulas.length - 1) {
                     csv += ",";
                 }
             });
-            // Adicionar uma quebra de linha após cada linha da tabela
             csv += "\n";
         }
     });
 
-    // Criar um objeto Blob com o conteúdo CSV
+    // Fazer o Download do arquivo CSV
     const blob = new Blob([csv], { type: 'text/csv' });
-
-    // Criar um link de download e clicar nele programaticamente
     const link = document.createElement('a');
     link.href = window.URL.createObjectURL(blob);
     link.download = 'tabela_filtrada.csv';
@@ -200,6 +194,7 @@ function exportarTabela() {
     alert("Tabela exportada com sucesso!");
 }
 
+// Listener do Clique do Botão Exportar
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('bt_exportar').addEventListener('click', exportarTabela);
 });
