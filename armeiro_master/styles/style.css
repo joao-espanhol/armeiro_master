@@ -2,7 +2,7 @@
 
 body
 {
-  font-family: arial, helvetica, sans-serif;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
   font-size: 12px;
   margin: 0;
   padding: 0;
@@ -47,6 +47,9 @@ h4
   text-align: center;
 }
 
+.offcanvas-font-size {
+  font-size: 25px; 
+}
 
 /* MENU DE CADASTROS */
 
@@ -166,8 +169,8 @@ button
     border-collapse: collapse;
     width: 100%;
     border: 2px solid #2f4530; 
-    margin-left: 160px;
-    margin-right: 50px;
+    margin-left: 0;
+    margin-right: 0;
 }
 
 /* Estilos para as células do cabeçalho */
@@ -291,6 +294,8 @@ header {
 .container {
   width: 80%;
   margin: 0 auto;
+  position: relative;
+  text-align: center;
 }
 
 
@@ -301,10 +306,6 @@ main {
 }
 
 
-.container {
-  position: relative;
-  text-align: center;
-}
 
 .logo {
   width: 60%; 
