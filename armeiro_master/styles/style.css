@@ -14,7 +14,7 @@ p {
   line-height: 2;
 }
 
-/* TITULO */
+/* TITULOS */
 
 
 h2
@@ -54,7 +54,7 @@ h4
 /* MENU DE CADASTROS */
 
 .Cadastro {
-  max-width: 500px;
+  max-width: 600px;
   margin: 50px auto;
   background-color:#fff;
   padding: 20px;
@@ -119,42 +119,7 @@ select
 
 /* CONFIGURACAO DA TABELA */
 
-button
-{
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
 
-#paginaAnterior {
-  background-color: #4d8357; /* Verde */
-  color: #fff;
-}
-
-#paginaAnterior:hover {
-  background-color: #4d8357; /* Verde mais escuro ao passar o mouse */
-}
-
-#paginaSeguinte{
-  background-color: #4d8357; /* Verde claro */
-  color: #fff;
-}
-
-#paginaSeguinte:hover {
-  background-color: #4d8357; /* Verde claro mais escuro ao passar o mouse */
-}
-
-#botaoFiltrar{
-  background-color: #4d8357; /* Verde claro */
-  color: #fff;
-}
-
-#botaoFiltrar:hover {
-  background-color: #4d8357; /* Verde claro mais escuro ao passar o mouse */
-}
 .campos {
   width: 80%; 
   height: 80%; 
@@ -164,7 +129,6 @@ button
   
 }
 
-/* Estilos para a tabela */
 #tabela {
     border-collapse: collapse;
     width: 100%;
@@ -173,7 +137,7 @@ button
     margin-right: 0;
 }
 
-/* Estilos para as células do cabeçalho */
+/* CABECALHO  */
 #tabela th
 {
     background-color: #3b5440; 
@@ -191,12 +155,12 @@ button
     border-bottom: 2px solid #ddd; 
 }
 
-/* Adiciona uma barra de rolagem horizontal quando necessário */
+/* BARRA DE ROLAGEM HORIZONTAL */
 #corpo-tabela {
   overflow-x: auto;
 }
 
-/* Define largura mínima para cada coluna da tabela */
+/* LARGURA DAS COLUNAS */
 #tabela th:nth-child(1),
 #tabela td:nth-child(1) {
     min-width: 50px;
@@ -206,46 +170,46 @@ button
     min-width: 50px;
 }
 
-/* Estilos para as linhas alternadas da tabela */
+/* LINHAS ALTERNADAS */
 #tabela tbody tr:nth-child(even) {
     background-color: #689a72; 
 }
 
-/* Estilos para as células da primeira coluna */
+/* CÉLULAS DA PRIMEIRA COLUNA */
 #tabela tbody tr td:first-child {
     background-color: #3b5440; 
     color: white;
 }
 
-/* Adaptação da tabela para telas menores */
+/* TELAS MENORES */
 @media only screen and (max-width: 600px) {
   #tabela th, #tabela td {
       padding: 6px;
   }
 
-  /* Oculta os cabeçalhos das colunas */
+  
   #tabela th {
       display: none;
   }
 
-  /* Mostra as células como blocos empilhados */
+  
   #tabela td {
       display: block;
       border: none;
   }
 
-  /* Estiliza a primeira célula de cada linha (rótulos) */
+  /* ESTILO PRIMEIRA CELULA POR LINHA */
   #tabela td:nth-child(1) {
       background-color: #f2f2f2;
       font-weight: bold;
   }
 
-  /* Estiliza as células de dados */
+  /* ESTILO CELULA DE CABECALHO */
   #tabela td:not(:nth-child(1)) {
       border-top: 1px solid #ddd;
   }
 
-  /* Adiciona espaço entre as células */
+  /* ESPACO ENTRE CELULAS */
   #tabela td:not(:nth-child(1))::before {
       content: "\a";
       white-space: pre;
@@ -263,15 +227,15 @@ button
 {
   top: 300px;
   left: 10px;
-  width: 250px; /* Largura do menu */
+  width: 250px; 
   height: 470px;
   background-color: #fff;
   padding: 20px;
-  border-radius: 0 10px 10px 0; /* Adiciona borda arredondada apenas à direita */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Sombra */
+  border-radius: 0 10px 10px 0; 
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 16px;
-  transition: left 0.3s ease; /* Adiciona transição suave ao movimento */
+  transition: left 0.3s ease; 
   position:fixed;
   z-index: -1;
 
@@ -279,23 +243,21 @@ button
 
 
 
-
 /* MENU INICIAL */
 
-
 header {
-  background-image: url('imgRadio.jpg');
-  background-size: cover;
-  color: white;
-  padding: 50px 0;
+  position: relative;
+  height: 5vh; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
+  color: white;
 }
 
-.container {
-  width: 80%;
-  margin: 0 auto;
-  position: relative;
-  text-align: center;
+.titulo {
+  font-size: 3em;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
 }
 
 
@@ -305,12 +267,10 @@ main {
   padding: 20px 0;
 }
 
-
-
 .logo {
   width: 60%; 
   height: 100%; 
-  filter: blur(2px); /* adicione um efeito de desfoque à imagem do logo */
+  filter: blur(2px); 
   background-size: cover;
 }
 
