@@ -22,7 +22,7 @@ function preencherDropdown(xmlDoc, dropdown, tagName) {
 
 // Carregar o XML de Modelos
 function loadModelos() {
-    loadXML("data/modelos.xml", processarModelos);
+    loadXML("data/modelos.xml", processarModelosDropdown);
 }
 
 // Carregar o XML de Materiais
@@ -41,6 +41,25 @@ function processarModelos(xml) {
         // Chamar a função atualizarREFeGrupo() passando o valor do modelo selecionado como argumento
         atualizarREFeGrupo(this.value);
     });
+}
+
+function processarMateriais(xml) {
+    const xmlDoc = xml.responseXML;
+    const radios = xmlDoc.getElementsByTagName("radio");
+
+    let maxRef = 0;
+    for (let i = 0; i < radios.length; i++) {
+        const ref = parseInt(radios[i].getElementsByTagName("ref")[0].textContent.replace("RAD", ""));
+        if (ref > maxRef) {
+            maxRef = ref;
+        }
+    }
+
+    // Adicionar 1 ao valor máximo de REF
+    maxRef++;
+
+    // Preencher o campo REF com o valor máximo incrementado
+    document.getElementById('cd_REF').value = "RAD" + maxRef;
 }
 
 // Carregar os XMLs ao carregar a página
@@ -117,8 +136,6 @@ function preencherDropdownComSet(valores, dropdownId) {
         const option = new Option(valor, valor);
         dropdown.appendChild(option);
     });
-
-    
 }
 
 // Função para filtrar a tabela com base nos filtros selecionados
@@ -249,3 +266,53 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('bt_CadastrarModelo').addEventListener('click', cadastrarNovoModelo);
 });
 
+let xmlDocModelos;
+
+// Função para processar o XML dos modelos apenas para preenchimento do dropdown cd_Modelo
+function processarModelosDropdown(xml) {
+    xmlDocModelos = xml.responseXML;
+    const selectModelo = document.getElementById("cd_Modelo");
+    preencherDropdown(xmlDocModelos, selectModelo, "nome");
+
+    // Adicionar evento de mudança ao select de modelos
+    selectModelo.addEventListener('change', function() {
+        console.log("Modelo selecionado:", this.value);
+        processarMateriais(xml);
+    });
+}
+
+// Adicionar um ouvinte de evento de mudança ao dropdown cd_Modelo
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('cd_Modelo').addEventListener('change', function() {
+        console.log("Evento de mudança acionado!"); // Log para verificar se o evento está sendo acionado
+
+        // Obter o valor selecionado no dropdown cd_Modelo
+        const selectedModelo = this.value;
+        console.log("Modelo selecionado:", selectedModelo); // Log para verificar o modelo selecionado
+
+        // Realizar a lógica para encontrar a referência (REF) e o grupo correspondentes ao modelo selecionado
+        const modelos = xmlDocModelos.getElementsByTagName('modelo');
+
+        let ref;
+        let grupo;
+
+        // Procurar pelo modelo selecionado no XML dos modelos
+        for (let i = 0; i < modelos.length; i++) {
+            const nomeModelo = modelos[i].getElementsByTagName('nome')[0].textContent;
+            if (nomeModelo === selectedModelo) {
+                ref = modelos[i].getElementsByTagName('pre')[0].textContent;
+                grupo = modelos[i].getElementsByTagName('grupo')[0].textContent;
+                break;
+            }
+        }
+
+        console.log("REF:", ref); // Log para verificar a REF encontrada
+        console.log("Grupo:", grupo); // Log para verificar o grupo encontrado
+
+        // Atualizar os valores dos campos cd_REF e cd_Grupo
+        document.getElementById('cd_REF').value = ref;
+        document.getElementById('cd_Grupo').value = grupo;
+
+        console.log("Valores dos campos atualizados!"); // Log para verificar se os valores dos campos foram atualizados
+    });
+});

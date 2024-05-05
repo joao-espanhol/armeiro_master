@@ -58,6 +58,31 @@ app.post('/cadastrar-modelo', (req, res) => {
     });
 });
 
+// Rota para obter a lista de modelos
+app.get('/modelos', (req, res) => {
+    // Aqui você deve ler o arquivo modelos.xml ou acessar o banco de dados, dependendo de como os modelos são armazenados
+    // Após obter os modelos, envie-os como resposta
+    fs.readFile(path.join(__dirname, 'armeiro_master', 'data', 'modelos.xml'), (err, data) => {
+        if (err) {
+            console.error('Erro ao ler arquivo XML:', err);
+            return res.status(500).send('Erro ao processar a solicitação.');
+        }
+
+        // Converter XML para JSON
+        xml2js.parseString(data, (err, result) => {
+            if (err) {
+                console.error('Erro ao converter XML para JSON:', err);
+                return res.status(500).send('Erro ao processar a solicitação.');
+            }
+
+            // Extrair a lista de modelos do JSON
+            const modelos = result.modelos.modelo.map(modelo => modelo.nome[0]);
+
+            // Enviar os modelos como resposta
+            res.json(modelos);
+        });
+    });
+});
 
 // Iniciar o servidor
 app.listen(port, () => {
