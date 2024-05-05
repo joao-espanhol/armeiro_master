@@ -120,6 +120,28 @@ select
 /* CONFIGURACAO DA TABELA */
 
 
+/* BOTAO EXCLUIR */
+.btn-lixeira {
+  background-color: #fcfcfc; 
+  color: rgb(0, 0, 0); 
+  border: none; 
+  padding: 10px 20px; 
+  border-radius: 5px; 
+  cursor: pointer; 
+  transition: background-color 0.3s; 
+  outline: none; 
+}
+
+
+.btn-lixeira:hover {
+  background-color: #9d0000; 
+}
+
+
+.btn-lixeira:active {
+  background-color: #9d0000; 
+}
+
 .campos {
   width: 80%; 
   height: 80%; 
