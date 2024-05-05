@@ -245,6 +245,16 @@ select
 
 /* MENU INICIAL */
 
+.container-fluid{
+
+  --bs-gutter-x: 1.5rem;
+  --bs-gutter-y: 0;
+  width: 100%;
+  padding-right: 0;
+  padding-left: 0;
+  margin-right: auto;
+  margin-left: auto;
+}
 header {
   position: relative;
   height: 5vh; 
@@ -254,6 +264,7 @@ header {
   text-align: center;
   color: white;
 }
+
 
 .titulo {
   font-size: 3em;
