@@ -1,16 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <materiais xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <radio>
-    <ref>RAD103</ref>
-    <grupo>-</grupo>
-    <modelo>RF-7800V-P</modelo>
-    <ns>A09333</ns>
-    <bateria>OK</bateria>
-    <antena>OK</antena>
-    <situacao>SEM ALTERAÇÃO</situacao>
-    <alteracao>-</alteracao>
-  </radio>
-  <radio>
     <ref>RAD104</ref>
     <grupo>-</grupo>
     <modelo>RF-7800V-P</modelo>

@@ -90,7 +90,7 @@ function myFunction(xml) {
         table += "<td data-col='filtroAntena'>" + radios[i].getElementsByTagName("antena")[0].childNodes[0].nodeValue + "</td>";
         table += "<td data-col='filtroSituacao'>" + radios[i].getElementsByTagName("situacao")[0].childNodes[0].nodeValue + "</td>";
         table += "<td data-col='filtroAlteracao'>" + radios[i].getElementsByTagName("alteracao")[0].childNodes[0].nodeValue + "</td>";
-        table += "<td><button class='btn-lixeira' data-ref='" + ref + "'>Lixeira</button></td>";
+        table += "<td><button class='btn-lixeira' data-ref='" + ref + "'>Excluir</button></td>";
         table += "</tr>";
     }
     document.getElementById("corpo-tabela").innerHTML = "";
