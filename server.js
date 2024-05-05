@@ -84,7 +84,74 @@ app.get('/modelos', (req, res) => {
     });
 });
 
+// Rota para cadastrar um novo rádio
+app.post('/cadastrar-radio', (req, res) => {
+    const ref = req.body.cd_REF;
+    const grupo = req.body.cd_Grupo;
+    const modelo = req.body.cd_Modelo;
+    const numeroSerie = req.body.cd_NumeroSerie;
+    const bateria = req.body.cd_Bateria;
+    const antena = req.body.cd_Antena;
+    const situacao = req.body.cd_Situacao;
+    const alteracao = req.body.cd_Alteracao;
+
+    // Ler o arquivo XML
+    fs.readFile(path.join(__dirname, 'armeiro_master', 'data', 'materiais.xml'), (err, data) => {
+        if (err) {
+            console.error('Erro ao ler arquivo XML:', err);
+            return res.status(500).send('Erro ao processar a solicitação.');
+        }
+
+        // Converter XML para JSON
+        xml2js.parseString(data, (err, result) => {
+            if (err) {
+                console.error('Erro ao converter XML para JSON:', err);
+                return res.status(500).send('Erro ao processar a solicitação.');
+            }
+
+            // Verificar se há um array de radios dentro de materiais
+            const radios = result.materiais.radio;
+            if (!radios || !Array.isArray(radios)) {
+                console.error('Estrutura do XML inválida:', result);
+                return res.status(500).send('Estrutura do XML inválida.');
+            }
+
+            // Adicionar novo rádio ao XML
+            const novoRadioXml = {
+                ref: ref,
+                grupo: grupo,
+                modelo: modelo,
+                ns: numeroSerie,
+                bateria: bateria,
+                antena: antena,
+                situacao: situacao,
+                alteracao: alteracao
+            };
+            radios.push({ radio: novoRadioXml });
+
+            
+            // Converter JSON de volta para XML
+            const builder = new xml2js.Builder();
+            const novoXml = builder.buildObject(result);
+
+            // Escrever o novo XML no arquivo
+            fs.writeFile(path.join(__dirname, 'armeiro_master', 'data', 'materiais.xml'), novoXml, (err) => {
+                if (err) {
+                    console.error('Erro ao escrever arquivo XML:', err);
+                    return res.status(500).send('Erro ao processar a solicitação.');
+                }
+
+                console.log('Rádio cadastrado com sucesso:', ref);
+                res.send('Rádio cadastrado com sucesso!');
+            });
+        });
+    });
+});
+
+
 // Iniciar o servidor
 app.listen(port, () => {
     console.log(`Servidor iniciado em http://localhost:${port}`);
 });
+
+

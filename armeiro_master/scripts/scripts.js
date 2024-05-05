@@ -54,12 +54,6 @@ function processarMateriais(xml) {
             maxRef = ref;
         }
     }
-
-    // Adicionar 1 ao valor máximo de REF
-    maxRef++;
-
-    // Preencher o campo REF com o valor máximo incrementado
-    document.getElementById('cd_REF').value = "RAD" + maxRef;
 }
 
 // Carregar os XMLs ao carregar a página
@@ -68,12 +62,25 @@ window.onload = function() {
     loadModelos();
 };
 
+const radioIDs = new Set();
+
 function myFunction(xml) {
     const xmlDoc = xml.responseXML;
     const radios = xmlDoc.getElementsByTagName("radio");
 
     let table = "";
     for (let i = 0; i < radios.length; i++) {
+
+        const ref = radios[i].getElementsByTagName("ref")[0].textContent;
+        
+        // Verificar se o ID do rádio já foi adicionado à tabela
+        if (radioIDs.has(ref)) {
+            continue;
+        }
+        
+        // Adicionar o ID do rádio ao conjunto
+        radioIDs.add(ref);
+
         table += "<tr>";
         table += "<td data-col='filtroRef'>" + radios[i].getElementsByTagName("ref")[0].childNodes[0].nodeValue + "</td>";
         table += "<td data-col='filtroGrupo'>" + radios[i].getElementsByTagName("grupo")[0].childNodes[0].nodeValue + "</td>";
@@ -85,6 +92,8 @@ function myFunction(xml) {
         table += "<td data-col='filtroAlteracao'>" + radios[i].getElementsByTagName("alteracao")[0].childNodes[0].nodeValue + "</td>";
         table += "</tr>";
     }
+
+    document.getElementById("corpo-tabela").innerHTML = "";
     document.getElementById("corpo-tabela").innerHTML = table;
 
     // Armazenar os valores dos filtros
@@ -284,11 +293,9 @@ function processarModelosDropdown(xml) {
 // Adicionar um ouvinte de evento de mudança ao dropdown cd_Modelo
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('cd_Modelo').addEventListener('change', function() {
-        console.log("Evento de mudança acionado!"); // Log para verificar se o evento está sendo acionado
 
         // Obter o valor selecionado no dropdown cd_Modelo
         const selectedModelo = this.value;
-        console.log("Modelo selecionado:", selectedModelo); // Log para verificar o modelo selecionado
 
         // Realizar a lógica para encontrar a referência (REF) e o grupo correspondentes ao modelo selecionado
         const modelos = xmlDocModelos.getElementsByTagName('modelo');
@@ -306,13 +313,67 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
 
-        console.log("REF:", ref); // Log para verificar a REF encontrada
-        console.log("Grupo:", grupo); // Log para verificar o grupo encontrado
-
         // Atualizar os valores dos campos cd_REF e cd_Grupo
         document.getElementById('cd_REF').value = ref;
         document.getElementById('cd_Grupo').value = grupo;
 
-        console.log("Valores dos campos atualizados!"); // Log para verificar se os valores dos campos foram atualizados
     });
+});
+
+function cadastrarNovoRadio() {
+    // Obter os valores inseridos pelo usuário
+    const modelo = document.getElementById('cd_Modelo').value;
+    const grupo = document.getElementById('cd_Grupo').value;
+    const ref = document.getElementById('cd_REF').value;
+    const numeroSerie = document.getElementById('cd_NumeroSerie').value;
+    const bateria = document.getElementById('cd_Bateria').value;
+    const antena = document.getElementById('cd_Antena').value;
+    const situacao = document.getElementById('cd_Situacao').value;
+    const alteracao = document.getElementById('cd_Alteracao').value;
+
+    // Verificar se os campos obrigatórios foram preenchidos
+    if (modelo.trim() === '' || grupo === 'Grupo' || ref.trim() === '' || numeroSerie.trim() === '' || bateria === 'Status da Bateria' || antena === 'Status da Antena' || situacao === 'Situação') {
+        alert('Por favor, preencha todos os campos obrigatórios.');
+        return;
+    }
+
+    // Construir o objeto com os dados do novo rádio
+    const data = {
+        cd_Modelo: modelo,
+        cd_Grupo: grupo,
+        cd_REF: ref,
+        cd_NumeroSerie: numeroSerie,
+        cd_Bateria: bateria,
+        cd_Antena: antena,
+        cd_Situacao: situacao,
+        cd_Alteracao: alteracao
+    };
+
+    // Enviar uma solicitação POST para o servidor
+    fetch('http://localhost:3000/cadastrar-radio', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Erro ao cadastrar novo rádio');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Rádio cadastrado com sucesso:', data);
+        alert('Novo rádio cadastrado com sucesso.');
+    })
+    .catch(error => {
+        console.error('Erro ao cadastrar novo rádio:', error);
+        alert('Erro ao cadastrar novo rádio. Por favor, tente novamente mais tarde.');
+    });
+}
+
+// Adicionar um evento de clique ao botão de cadastrar novo radio
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('bt_Cadastrar').addEventListener('click', cadastrarNovoRadio);
 });
