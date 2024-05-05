@@ -84,6 +84,12 @@ app.get('/modelos', (req, res) => {
     });
 });
 
+function ordenarRadiosPorRef(radios) {
+    return radios.sort((a, b) => {
+        return a.ref[0].localeCompare(b.ref[0]);
+    });
+}
+
 // Rota para cadastrar um novo rádio
 app.post('/cadastrar-radio', (req, res) => {
     const ref = req.body.cd_REF;
@@ -109,11 +115,15 @@ app.post('/cadastrar-radio', (req, res) => {
                 return res.status(500).send('Erro ao processar a solicitação.');
             }
 
+            
             // Verificar se há um array de radios dentro de materiais
-            const radios = result.materiais.radio;
-            if (!radios || !Array.isArray(radios)) {
-                console.error('Estrutura do XML inválida:', result);
-                return res.status(500).send('Estrutura do XML inválida.');
+            let radios;
+            if (result && result.materiais && result.materiais.radio && Array.isArray(result.materiais.radio)) {
+                radios = result.materiais.radio;
+            } else {
+                console.error('Nenhum rádio encontrado no XML. Adicionando novo rádio:', ref);
+                result.materiais = { radio: [] }; // Criar uma nova lista de rádios
+                radios = result.materiais.radio;
             }
 
             // Adicionar novo rádio ao XML
@@ -127,12 +137,11 @@ app.post('/cadastrar-radio', (req, res) => {
                 situacao: situacao,
                 alteracao: alteracao
             };
-            radios.push({ radio: novoRadioXml });
-
+            radios.push(novoRadioXml);
             
             // Converter JSON de volta para XML
             const builder = new xml2js.Builder();
-            const novoXml = builder.buildObject(result);
+            let novoXml = builder.buildObject(result);
 
             // Escrever o novo XML no arquivo
             fs.writeFile(path.join(__dirname, 'armeiro_master', 'data', 'materiais.xml'), novoXml, (err) => {
@@ -142,13 +151,43 @@ app.post('/cadastrar-radio', (req, res) => {
                 }
 
                 console.log('Rádio cadastrado com sucesso:', ref);
-                res.send('Rádio cadastrado com sucesso!');
+
+                // Ler novamente o arquivo XML para ordenação
+                fs.readFile(path.join(__dirname, 'armeiro_master', 'data', 'materiais.xml'), (err, newData) => {
+                    if (err) {
+                        console.error('Erro ao ler arquivo XML:', err);
+                        return res.status(500).send('Erro ao processar a solicitação.');
+                    }
+
+                    // Converter XML para JSON
+                    xml2js.parseString(newData, (err, newResult) => {
+                        if (err) {
+                            console.error('Erro ao converter XML para JSON:', err);
+                            return res.status(500).send('Erro ao processar a solicitação.');
+                        }
+
+                        // Ordenar os rádios por ref
+                        newResult.materiais.radio = ordenarRadiosPorRef(newResult.materiais.radio);
+
+                        // Converter JSON de volta para XML
+                        novoXml = builder.buildObject(newResult);
+
+                        // Escrever o novo XML ordenado no arquivo
+                        fs.writeFile(path.join(__dirname, 'armeiro_master', 'data', 'materiais.xml'), novoXml, (err) => {
+                            if (err) {
+                                console.error('Erro ao escrever arquivo XML:', err);
+                                return res.status(500).send('Erro ao processar a solicitação.');
+                            }
+
+                            console.log('Rádio cadastrado e XML ordenado com sucesso:', ref);
+                            res.send('Rádio cadastrado e XML ordenado com sucesso!');
+                        });
+                    });
+                });
             });
         });
     });
 });
-
-
 // Iniciar o servidor
 app.listen(port, () => {
     console.log(`Servidor iniciado em http://localhost:${port}`);

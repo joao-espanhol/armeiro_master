@@ -191,6 +191,46 @@
     <alteracao>ENTRADA DA ANTENA QUEBRADA, ANTENA GPS BAIXADA</alteracao>
   </radio>
   <radio>
+    <ref>RAD125</ref>
+    <grupo>GRUPO 2</grupo>
+    <modelo>RF-7800V-P</modelo>
+    <ns>asd123123</ns>
+    <bateria>OK</bateria>
+    <antena>DANIFICADA</antena>
+    <situacao>FUNCIONA</situacao>
+    <alteracao>aaaaabbbbb</alteracao>
+  </radio>
+  <radio>
+    <ref>RAD126</ref>
+    <grupo>GRUPO 2</grupo>
+    <modelo>RF-7800V-P</modelo>
+    <ns>asd123123</ns>
+    <bateria>OK</bateria>
+    <antena>DANIFICADA</antena>
+    <situacao>FUNCIONA</situacao>
+    <alteracao>aaaaabbbbb</alteracao>
+  </radio>
+  <radio>
+    <ref>RAD127</ref>
+    <grupo>GRUPO 2</grupo>
+    <modelo>RF-7800V-P</modelo>
+    <ns>asd123123</ns>
+    <bateria>OK</bateria>
+    <antena>DANIFICADA</antena>
+    <situacao>FUNCIONA</situacao>
+    <alteracao>aaaaabbbbb</alteracao>
+  </radio>
+  <radio>
+    <ref>RAD127</ref>
+    <grupo>GRUPO 2</grupo>
+    <modelo>RF-7800V-P</modelo>
+    <ns>asd123123</ns>
+    <bateria>OK</bateria>
+    <antena>DANIFICADA</antena>
+    <situacao>FUNCIONA</situacao>
+    <alteracao>aaaaabbbbb</alteracao>
+  </radio>
+  <radio>
     <ref>RAD201</ref>
     <grupo>-</grupo>
     <modelo>RF-7800V-V</modelo>
@@ -259,6 +299,56 @@
     <antena>OK</antena>
     <situacao>BAIXADO</situacao>
     <alteracao>NÃO LIGA</alteracao>
+  </radio>
+  <radio>
+    <ref>RAD259</ref>
+    <grupo>GRUPO 4</grupo>
+    <modelo>RF-7800V-V</modelo>
+    <ns>asd123123</ns>
+    <bateria>OK</bateria>
+    <antena>DANIFICADA</antena>
+    <situacao>FUNCIONA</situacao>
+    <alteracao>aaaaabbbbb</alteracao>
+  </radio>
+  <radio>
+    <ref>RAD260</ref>
+    <grupo>GRUPO 4</grupo>
+    <modelo>RF-7800V-P</modelo>
+    <ns>asd123123</ns>
+    <bateria>OK</bateria>
+    <antena>DANIFICADA</antena>
+    <situacao>FUNCIONA</situacao>
+    <alteracao>aaaaabbbbb</alteracao>
+  </radio>
+  <radio>
+    <ref>RAD261</ref>
+    <grupo>GRUPO 4</grupo>
+    <modelo>RF-7800V-P</modelo>
+    <ns>asd123123</ns>
+    <bateria>OK</bateria>
+    <antena>DANIFICADA</antena>
+    <situacao>FUNCIONA</situacao>
+    <alteracao>aaaaabbbbb</alteracao>
+  </radio>
+  <radio>
+    <ref>RAD262</ref>
+    <grupo>GRUPO 4</grupo>
+    <modelo>RF-7800V-V</modelo>
+    <ns>asd123123</ns>
+    <bateria>OK</bateria>
+    <antena>DANIFICADA</antena>
+    <situacao>FUNCIONA</situacao>
+    <alteracao>aaaaabbbbb</alteracao>
+  </radio>
+  <radio>
+    <ref>RAD263</ref>
+    <grupo>GRUPO 4</grupo>
+    <modelo>RF-7800V-V</modelo>
+    <ns>asd123123</ns>
+    <bateria>OK</bateria>
+    <antena>DANIFICADA</antena>
+    <situacao>FUNCIONA</situacao>
+    <alteracao>aaaaabbbbb</alteracao>
   </radio>
   <radio>
     <ref>RAD301</ref>
@@ -781,6 +871,16 @@
     <alteracao>-</alteracao>
   </radio>
   <radio>
+    <ref>RAD390</ref>
+    <grupo>GRUPO 2</grupo>
+    <modelo>XTS-1500</modelo>
+    <ns>asd123</ns>
+    <bateria>OK</bateria>
+    <antena>DANIFICADA</antena>
+    <situacao>FUNCIONA</situacao>
+    <alteracao>aaaaa</alteracao>
+  </radio>
+  <radio>
     <ref>RAD401</ref>
     <grupo>-</grupo>
     <modelo>XTL-1500</modelo>
@@ -1179,77 +1279,5 @@
     <antena>BAIXADA</antena>
     <situacao>BAIXADO</situacao>
     <alteracao>PARA DESCARGA</alteracao>
-  </radio>
-  <radio>
-    <radio>
-      <ref>RAD504</ref>
-      <grupo>GRUPO 5</grupo>
-      <modelo>YAESU</modelo>
-      <ns>12345</ns>
-      <bateria>NÃO HÁ</bateria>
-      <antena>DANIFICADA</antena>
-      <situacao>SEM ALTERAÇÃO</situacao>
-      <alteracao>aaaaa</alteracao>
-    </radio>
-  </radio>
-  <radio>
-    <radio>
-      <ref>RAD120</ref>
-      <grupo>GRUPO 2</grupo>
-      <modelo>RF-7800V-P</modelo>
-      <ns>555555</ns>
-      <bateria>OK</bateria>
-      <antena>OK</antena>
-      <situacao>SEM ALTERAÇÃO</situacao>
-      <alteracao>sem altera</alteracao>
-    </radio>
-  </radio>
-  <radio>
-    <radio>
-      <ref>RAD220</ref>
-      <grupo>GRUPO 4</grupo>
-      <modelo>RF-7800V-V</modelo>
-      <ns>999999</ns>
-      <bateria>OK</bateria>
-      <antena>OK</antena>
-      <situacao>SEM ALTERAÇÃO</situacao>
-      <alteracao>bbbbbbb</alteracao>
-    </radio>
-  </radio>
-  <radio>
-    <radio>
-      <ref>RAD650</ref>
-      <grupo>GRUPO 3</grupo>
-      <modelo>VERTEX</modelo>
-      <ns>asd12314</ns>
-      <bateria>OK</bateria>
-      <antena>DANIFICADA</antena>
-      <situacao>SEM ALTERAÇÃO</situacao>
-      <alteracao>1234</alteracao>
-    </radio>
-  </radio>
-  <radio>
-    <radio>
-      <ref>RAD456</ref>
-      <grupo>GRUPO 4</grupo>
-      <modelo>XTL-1500</modelo>
-      <ns>aaa123</ns>
-      <bateria>BAIXADA</bateria>
-      <antena>BAIXADA</antena>
-      <situacao>DESATUALIZADO</situacao>
-      <alteracao>aaaaa</alteracao>
-    </radio>
-  </radio>
-  <radio>
-    <radio>
-      <ref>RAD350</ref>
-      <grupo>GRUPO 2</grupo>
-      <modelo>XTS-1500</modelo>
-      <ns>aaa1234</ns>
-      <bateria>BAIXADA</bateria>
-      <antena>DANIFICADA</antena>
-      <situacao>BAIXADO</situacao>
-      <alteracao>ultimoteste</alteracao>
-    </radio>
   </radio>
 </materiais>
