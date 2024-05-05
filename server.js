@@ -8,7 +8,11 @@ const path = require('path');
 const app = express();
 const port = 3000;
 
-app.use(cors()); // Configuração do CORS
+app.use(cors({
+    origin: 'http://127.0.0.1:5500', // Permitir solicitações somente do Live Server
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Permitir todos os métodos HTTP
+    allowedHeaders: ['Content-Type', 'Authorization'] // Permitir os cabeçalhos necessários
+  }));
 
 // Middleware para analisar dados do formulário
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -188,6 +192,50 @@ app.post('/cadastrar-radio', (req, res) => {
         });
     });
 });
+
+// Adicione uma nova rota para lidar com a exclusão de rádio
+app.delete('/excluir-radio/:ref', (req, res) => {
+    const ref = req.params.ref;
+
+    // Ler o arquivo XML
+    fs.readFile(path.join(__dirname, 'armeiro_master', 'data', 'materiais.xml'), (err, data) => {
+        if (err) {
+            console.error('Erro ao ler arquivo XML:', err);
+            return res.status(500).send('Erro ao processar a solicitação.');
+        }
+
+        // Converter XML para JSON
+        xml2js.parseString(data, (err, result) => {
+            if (err) {
+                console.error('Erro ao converter XML para JSON:', err);
+                return res.status(500).send('Erro ao processar a solicitação.');
+            }
+
+            // Encontrar e remover o rádio com a ref correspondente
+            const radios = result.materiais.radio;
+            const index = radios.findIndex(radio => radio.ref[0] === ref);
+            if (index !== -1) {
+                radios.splice(index, 1); // Remover o rádio do array
+            }
+
+            // Converter JSON de volta para XML
+            const builder = new xml2js.Builder();
+            const novoXml = builder.buildObject(result);
+
+            // Escrever o novo XML no arquivo
+            fs.writeFile(path.join(__dirname, 'armeiro_master', 'data', 'materiais.xml'), novoXml, (err) => {
+                if (err) {
+                    console.error('Erro ao escrever arquivo XML:', err);
+                    return res.status(500).send('Erro ao processar a solicitação.');
+                }
+
+                console.log('Rádio excluído com sucesso:', ref);
+                res.send('Rádio excluído com sucesso!');
+            });
+        });
+    });
+});
+
 // Iniciar o servidor
 app.listen(port, () => {
     console.log(`Servidor iniciado em http://localhost:${port}`);

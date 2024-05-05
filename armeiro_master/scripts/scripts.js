@@ -90,11 +90,20 @@ function myFunction(xml) {
         table += "<td data-col='filtroAntena'>" + radios[i].getElementsByTagName("antena")[0].childNodes[0].nodeValue + "</td>";
         table += "<td data-col='filtroSituacao'>" + radios[i].getElementsByTagName("situacao")[0].childNodes[0].nodeValue + "</td>";
         table += "<td data-col='filtroAlteracao'>" + radios[i].getElementsByTagName("alteracao")[0].childNodes[0].nodeValue + "</td>";
+        table += "<td><button class='btn-lixeira' data-ref='" + ref + "'>Lixeira</button></td>";
         table += "</tr>";
     }
-
     document.getElementById("corpo-tabela").innerHTML = "";
     document.getElementById("corpo-tabela").innerHTML = table;
+
+    const btnLixeiraList = document.querySelectorAll('.btn-lixeira');
+
+    btnLixeiraList.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const ref = this.getAttribute('data-ref');
+            excluirRadio(ref);
+        });
+    });
 
     // Armazenar os valores dos filtros
     const refSet = new Set();
@@ -136,6 +145,45 @@ function myFunction(xml) {
     document.getElementById('filtroSituacao').addEventListener('change', filtrarTabela);
     document.getElementById('filtroAlteracao').addEventListener('change', filtrarTabela);
 }
+
+// Listener das lixeiras
+document.addEventListener('DOMContentLoaded', function() { 
+    document.querySelectorAll('.btn-lixeira').forEach(btn => {
+        console.log(btn); // Verifique se os botões estão sendo selecionados corretamente
+        btn.addEventListener('click', function() {
+            console.log("Botão lixeira clicado"); // Verifique se a função é chamada quando um botão é clicado
+            const ref = this.getAttribute('data-ref');
+            excluirRadio(ref);
+        });
+    });
+});
+
+function excluirRadio(ref) {
+    console.log("Excluindo rádio com ref:", ref); // Verifique se a função é chamada com o ref correto
+    // Enviar uma solicitação DELETE para a rota /excluir-radio/:ref no servidor
+    fetch('http://127.0.0.1:3000/excluir-radio/' + ref, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Erro ao excluir o rádio.');
+        }
+        console.log('Rádio excluído com sucesso.');
+
+        // Remover a linha correspondente à rádio excluído da tabela
+        const tableRow = document.querySelector('tr[data-ref="' + ref + '"]');
+        if (tableRow) {
+            tableRow.remove();
+        }
+    })
+    .catch(error => {
+        console.error('Erro ao excluir o rádio:', error.message);
+    });
+}
+
 
 function preencherDropdownComSet(valores, dropdownId) {
     const dropdown = document.getElementById(dropdownId);

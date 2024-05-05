@@ -1,26 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <materiais xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <radio>
-    <ref>RAD101</ref>
-    <grupo>-</grupo>
-    <modelo>RF-7800V-P</modelo>
-    <ns>A09090</ns>
-    <bateria>OK</bateria>
-    <antena>OK</antena>
-    <situacao>SEM ALTERAÇÃO</situacao>
-    <alteracao>-</alteracao>
-  </radio>
-  <radio>
-    <ref>RAD102</ref>
-    <grupo>-</grupo>
-    <modelo>RF-7800V-P</modelo>
-    <ns>A09534</ns>
-    <bateria>OK</bateria>
-    <antena>OK</antena>
-    <situacao>SEM ALTERAÇÃO</situacao>
-    <alteracao>-</alteracao>
-  </radio>
-  <radio>
     <ref>RAD103</ref>
     <grupo>-</grupo>
     <modelo>RF-7800V-P</modelo>
@@ -229,6 +209,16 @@
     <antena>DANIFICADA</antena>
     <situacao>FUNCIONA</situacao>
     <alteracao>aaaaabbbbb</alteracao>
+  </radio>
+  <radio>
+    <ref>RAD158</ref>
+    <grupo>GRUPO 2</grupo>
+    <modelo>RF-7800V-P</modelo>
+    <ns>12345</ns>
+    <bateria>OK</bateria>
+    <antena>DANIFICADA</antena>
+    <situacao>FUNCIONA</situacao>
+    <alteracao>aaaaaaa</alteracao>
   </radio>
   <radio>
     <ref>RAD201</ref>
